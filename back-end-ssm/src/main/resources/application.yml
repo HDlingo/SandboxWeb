@@ -1,0 +1,17 @@
+server:
+  port: 8081
+springdoc:
+  swagger-ui:
+    path: /doc
+  packages-to-scan: com.hdlingo.sandboxweb.backendssm
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#   为方便开发暂时使用公网ip
+    url: jdbc:mysql://sh-cynosdbmysql-grp-fob88xxu.sql.tencentcdb.com:27424/hdlingo
+    username: pikachudy
+    password: Pikachu.1234

@@ -1,9 +1,13 @@
 <template>
   <DDR v-model:value=this.transform
+       :acceptRatio=true
        :style="{'background-image':'url('+this.url+')'}"
        class="img_field"
        :active=this.isActive
-       @dblclick="this.isActive===false?isActive=true:isActive=false"
+       @dblclick.stop="removeSelf()"
+       @click.right.stop="changeActive()"
+       @contextmenu.prevent=""
+       v-if="isAlive"
   >
     <p></p>
   </DDR>
@@ -16,7 +20,8 @@ export default {
     DDR
   },
   props:[
-    "imgUrl"
+    "imgUrl",
+    "componentId"
   ],
   data(){
     return{
@@ -29,11 +34,32 @@ export default {
       },
       url:require("../assets/"+this.imgUrl),
       isActive:false,
+      isAlive:true,
+    }
+  },
+  methods:{
+    changeActive(){
+      if(this.isActive===false){
+        this.isActive=true;
+      }
+      else{
+        this.$emit("savePos",{
+          componentId : this.componentId,
+          transform : this.transform
+        })
+        this.isActive=false;
+      }
+    },
+    removeSelf(){
+      this.$emit("removeToy",{
+        componentId : this.componentId,
+      })
+      this.isAlive=false
     }
   }
 }
 </script>
-<style>
+<style scoped>
 .img_field {
   width:100%;
   height:100%;

@@ -1,5 +1,5 @@
 <template>
-  <div class="common-layout">
+  <div class="sandBox">
     <el-drawer
         v-model="drawer"
         direction="ltr"
@@ -24,26 +24,67 @@
         </div>
       </el-scrollbar>
     </el-drawer>
-    <el-container>
-      <el-aside width="200px" id="aside">
-        <div v-for="i in this.toyActiveNumber+1" :key="i" :id="i">
-        </div>
-      </el-aside>
-      <el-main id="main">
-        <el-button type="primary" @click="drawer=!drawer">
-          Click Me!
-        </el-button>
-        <el-button type="primary" @click="submitBox()">
-          Submit
-        </el-button>
-      </el-main>
-    </el-container>
+    <div>
+      <div v-for="i in this.toyActiveNumber+1" :key="i" :id="i">
+      </div>
+      <el-row style="font-size: 0;">
+        <el-col :span="8">
+          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[0]].url+')'}"
+               class="sandbox-block">
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[1]].url+')'}"
+               class="sandbox-block">
+            <el-button type="primary" @click="drawer=!drawer">
+              Click Me!
+            </el-button>
+            <el-button type="primary" @click="submitBox()">
+              Submit
+            </el-button>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[2]].url+')'}"
+               class="sandbox-block"></div>
+        </el-col>
+      </el-row>
+      <el-row style="font-size: 0;">
+        <el-col :span="8">
+          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[3]].url+')'}"
+               class="sandbox-block"></div>
+        </el-col>
+        <el-col :span="8">
+          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[4]].url+')'}"
+               class="sandbox-block"></div>
+        </el-col>
+        <el-col :span="8">
+          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[5]].url+')'}"
+               class="sandbox-block"></div>
+        </el-col>
+      </el-row>
+      <el-row style="font-size: 0;">
+        <el-col :span="8">
+          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[6]].url+')'}"
+               class="sandbox-block"></div>
+        </el-col>
+        <el-col :span="8">
+          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[7]].url+')'}"
+               class="sandbox-block"></div>
+        </el-col>
+        <el-col :span="8">
+          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[8]].url+')'}"
+               class="sandbox-block"></div>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 <script>
 import ImgRotatable from "@/components/ImgRotatable";
-import {render,h} from "vue";
-import { ElMessage } from 'element-plus'
+import {render, h} from "vue";
+import {ElMessage} from 'element-plus'
+
 export default {
   components: {
     ImgRotatable
@@ -51,8 +92,11 @@ export default {
   data() {
     return {
       drawer: false,
-      toyActiveNumber:0,
-      toyActiveList:[],
+      toyActiveNumber: 0,
+      toyActiveList: [],
+      sandBoxBlockOrder: [
+        0, 0, 1, 0, 1, 1, 1, 0, 0, 0
+      ],
       toyList: [
         {
           name: 'logo.png'
@@ -93,54 +137,62 @@ export default {
         {
           name: '13.png'
         },
-      ]
+      ],
+      sandBoxBlockList: [
+        {
+          url: require("../assets/grass.jpg")
+        },
+        {
+          url: require("../assets/ground.jpg")
+        }
+      ],
     }
   },
-  methods:{
-    createNewImgRotate(name){
+  methods: {
+    createNewImgRotate(name) {
       //生成唯一ID并记录
       let newId = Symbol();
       this.toyActiveList.push({
-        componentId:newId, //用于标识的唯一ID
-        name:name,
-        transform:{}
+        componentId: newId, //用于标识的唯一ID
+        name: name,
+        transform: {}
       })
       this.toyActiveNumber++;
       let parent = document.getElementById(this.toyActiveNumber);
-      let instance = h(ImgRotatable,{
-        imgUrl : name,
-        componentId : newId,
-        key : this.toyActiveNumber,
-        onSavePos : this.savePosHandler,
-        onRemoveToy : this.removeToyComponent,
+      let instance = h(ImgRotatable, {
+        imgUrl: name,
+        componentId: newId,
+        key: this.toyActiveNumber,
+        onSavePos: this.savePosHandler,
+        onRemoveToy: this.removeToyComponent,
       },);
-      instance.appContext=app._context;
-      render(instance,parent);
+      instance.appContext = app._context;
+      render(instance, parent);
       ElMessage({
-        message: "成功添加 "+name.split('.')[0]+" !",
+        message: "成功添加 " + name.split('.')[0] + " !",
         type: 'success',
         duration: 2000,
         showClose: true
       })
     },
-    savePosHandler(e){
+    savePosHandler(e) {
       let {componentId, transform} = e;
-      for(let i=0;i<this.toyActiveList.length;++i){
-        if(this.toyActiveList[i].componentId===componentId){
-          this.toyActiveList[i].transform=transform;
+      for (let i = 0; i < this.toyActiveList.length; ++i) {
+        if (this.toyActiveList[i].componentId === componentId) {
+          this.toyActiveList[i].transform = transform;
           return
         }
       }
     },
-    removeToyComponent(e){
+    removeToyComponent(e) {
       let {componentId} = e;
-      for(let i=0;i<this.toyActiveList.length;++i){
+      for (let i = 0; i < this.toyActiveList.length; ++i) {
         // 删除对应id元素
-        if(this.toyActiveList[i].componentId===componentId){
-          let name=this.toyActiveList[i].name;
-          this.toyActiveList.splice(i,1);
+        if (this.toyActiveList[i].componentId === componentId) {
+          let name = this.toyActiveList[i].name;
+          this.toyActiveList.splice(i, 1);
           ElMessage({
-            message: "成功删除 "+name.split('.')[0]+" !",
+            message: "成功删除 " + name.split('.')[0] + " !",
             type: 'success',
             duration: 2000,
             showClose: true
@@ -149,19 +201,22 @@ export default {
         }
       }
     },
-    submitBox(){
+    submitBox() {
       console.log(this.toyActiveList)
     }
   }
 }
 </script>
 <style>
-#aside {
-  background-color: aquamarine;
+.sandBox {
+  width: 100vw;
 }
 
-#main {
-  background-color: antiquewhite;
+.sandbox-block {
+  font-size: 0;
+  height: 33.33vh;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .img-field {

@@ -65,5 +65,6 @@ export default {
   height:100%;
   background-repeat: no-repeat;
   background-size:100% 100%;
+  z-index: 1;
 }
 </style>

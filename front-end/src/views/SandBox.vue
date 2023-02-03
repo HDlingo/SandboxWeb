@@ -27,56 +27,17 @@
     <div>
       <div v-for="i in this.toyActiveNumber+1" :key="i" :id="i">
       </div>
-      <el-row style="font-size: 0;">
-        <el-col :span="8">
-          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[0]].url+')'}"
-               class="sandbox-block">
-          </div>
-        </el-col>
-        <el-col :span="8">
-          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[1]].url+')'}"
-               class="sandbox-block">
-            <el-button type="primary" @click="drawer=!drawer">
-              Click Me!
-            </el-button>
-            <el-button type="primary" @click="submitBox()">
-              Submit
-            </el-button>
-          </div>
-        </el-col>
-        <el-col :span="8">
-          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[2]].url+')'}"
-               class="sandbox-block"></div>
-        </el-col>
-      </el-row>
-      <el-row style="font-size: 0;">
-        <el-col :span="8">
-          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[3]].url+')'}"
-               class="sandbox-block"></div>
-        </el-col>
-        <el-col :span="8">
-          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[4]].url+')'}"
-               class="sandbox-block"></div>
-        </el-col>
-        <el-col :span="8">
-          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[5]].url+')'}"
-               class="sandbox-block"></div>
-        </el-col>
-      </el-row>
-      <el-row style="font-size: 0;">
-        <el-col :span="8">
-          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[6]].url+')'}"
-               class="sandbox-block"></div>
-        </el-col>
-        <el-col :span="8">
-          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[7]].url+')'}"
-               class="sandbox-block"></div>
-        </el-col>
-        <el-col :span="8">
-          <div :style="{'background-image':'url('+this.sandBoxBlockList[this.sandBoxBlockOrder[8]].url+')'}"
-               class="sandbox-block"></div>
-        </el-col>
-      </el-row>
+      <el-button type="primary" @click="drawer=!drawer">
+        Click Me!
+      </el-button>
+      <el-button type="primary" @click="submitBox()">
+        Submit
+      </el-button>
+      <div class="map">
+        <div class="gallery" >
+          <img :src="this.sandBoxBlockList[blockIndex].url" alt="a sandbox map block" v-for="blockIndex in this.sandBoxBlockOrder" :key="blockIndex">
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -95,7 +56,7 @@ export default {
       toyActiveNumber: 0,
       toyActiveList: [],
       sandBoxBlockOrder: [
-        0, 0, 1, 0, 1, 1, 1, 0, 0, 0
+        0, 0, 0, 0, 1, 1, 1, 0, 1
       ],
       toyList: [
         {
@@ -209,14 +170,34 @@ export default {
 </script>
 <style>
 .sandBox {
-  width: 100vw;
+  margin-top: 1vh;
+}
+.map{
+  margin: 0;
+  display: grid;
+  place-content: center;
+}
+.gallery {
+  box-shadow:  25px 25px 30px #b8b8b8,
+  -25px -25px 30px #ffffff;
+  --s: 200px; /* control the size */
+  display: grid;
+  grid: auto-flow var(--s) / repeat(3, var(--s));
+  gap: 0px;
+  place-items: center;
+  margin: calc(var(--s) / 3);
+  transform: rotate(35deg) skew(-10deg, -10deg);
+
 }
 
-.sandbox-block {
-  font-size: 0;
-  height: 33.33vh;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+.gallery > img {
+  display: block;
+  width: 142%; /* sqrt(2)*100% */
+  aspect-ratio: 1;
+  transform: rotate(-45deg);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0 50%);
+  cursor: pointer;
+  transition: .2s linear;
 }
 
 .img-field {

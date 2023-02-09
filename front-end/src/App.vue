@@ -1,16 +1,13 @@
 <template>
   <div>
-    <SandBox></SandBox>
+    <router-view />
   </div>
 </template>
+
 <script>
-import SandBox from "@/views/SandBox";
-export default {
-  components:{
-    SandBox
-  }
-}
+
 </script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

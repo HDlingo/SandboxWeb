@@ -22,6 +22,20 @@ const routes = [
       return import('../views/tips.vue')
     }
   },
+  {
+    path: '/choose',
+    name: 'choose',
+    component: function () {
+      return import('../views/choose.vue')
+    }
+  },
+  {
+    path: '/course',
+    name: 'course',
+    component: function () {
+      return import('../views/course.vue')
+    }
+  }
 ]
 
 const router = createRouter({

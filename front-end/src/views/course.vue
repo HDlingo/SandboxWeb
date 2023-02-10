@@ -1,26 +1,23 @@
 <template>
-  <div :style="background" class="mark">
+  <div class="mark">
     <div class="alert">
       <!-- 按钮 -->
       <div class="common-layout">
         <el-container>
           <el-header>
             <el-button :style="button2" @click="cancel" class="button2"></el-button>
-            <div style="color:BLACK;font-size:250%;line-height:2em;margin-left:50px">沙盘探索</div>
+            <div style="color:BLACK;font-size:250%;line-height:2em;margin-left:50px">操作教程</div>
           </el-header>
           <el-main>
-            <div style="line-height:2em;font-size: 20px">这个沙盘是给iland做测试用的</div>
-            <div style="line-height:2em;font-size: 20px">你可以在沙盘中随意摆放喜欢的沙具</div>
-            <div style="line-height:2em;font-size: 20px">在解压的过程中进行心里评测</div>
-            <div style="line-height:2em;font-size: 20px">摆放结束后点击做下角的提交</div>
-            <div style="line-height:2em;font-size: 20px">提交后将有一份问卷功能</div>
-            <div style="line-height:2em;font-size: 20px">大概是这样，文字后续再琢磨</div>
+            <div style="line-height:2em;font-size: 20px">涉及到右侧抽屉的拖拽、鼠标左中右键选择(删除会上初步说是双击右键)</div>
+            <div style="line-height:2em;font-size: 20px">设置里是控制bgm吗</div>
+            <div style="line-height:2em;font-size: 20px">具体再议，主要是先放这个面板</div>
+            <div style="line-height:2em;font-size: 20px">面板内容不需要点击，后续替换即可</div>
+            <div style="line-height:2em;font-size: 20px">初次进入点击“开始探索”关闭面板</div>
+            <div style="line-height:2em;font-size: 20px">单击</div>
           </el-main>
           <el-footer>
-            <el-button :style="button1" @click="show" class="button1"></el-button>
-            <template v-if="bol">
-              <choose @ok="getData($event)" @cancel="close"></choose>
-            </template>
+            <el-button :style="button1" @click="sure" class="button1"></el-button>
           </el-footer>
         </el-container>
       </div>
@@ -31,16 +28,12 @@
 
 <script>
 import router from "@/router";
-import choose from "./choose.vue";
-import ImgRotatable from "@/components/ImgRotatable";
 
 export default {
   data() {
     return {
-      bol: false,
-      str: '',
       button1:{
-        backgroundImage: 'url(' + require('../assets/first/daoyu_next.png') + ')',
+        backgroundImage: 'url(' + require('../assets/first/jiaocheng_start.png') + ')',
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
         backgroundSize: 'cover',
@@ -59,43 +52,13 @@ export default {
         // 背景图片位置
         backgroundPosition: 'center top'
       },
-      background: {
-        // 背景图片地址
-        backgroundImage: 'url(' + require('../assets/first/kaishi_bgnew.png') + ')',
-        // 背景图片是否重复
-        backgroundRepeat: 'no-repeat',
-        // 背景图片大小
-        backgroundSize: 'cover',
-        // 背景颜色
-        backgroundColor: 'transparent',
-        // 背景图片位置
-        backgroundPosition: 'center top',
-
-      }
     }
-  },
-  components: {
-    choose,
-    ImgRotatable,
   },
   methods: {
     // 点击确定
-    show() {
-      this.bol = true;
+    sure() {
+      this.$emit('cancel')
     },
-    // 获取数据方法
-    getData(data) {
-      // 关闭弹出层
-      this.bol = false;
-      console.log(data);
-      this.str = data;
-    },
-    // 关闭弹窗
-    close() {
-      // 关闭弹出层
-      this.bol = false;
-    },
-
     // 点击取消
     cancel() {
       this.$emit('cancel')
@@ -132,7 +95,6 @@ export default {
 }
 
 .alert{
-  opacity:0.7;
   border-radius: 25px;
   padding: 20px;
   background: white;
@@ -145,8 +107,8 @@ export default {
   position: relative;
   left: 0;
   top:0;
-  width:220px;
-  height:60px;
+  width:200px;
+  height:50px;
   border:none;
   z-index:10;
 }

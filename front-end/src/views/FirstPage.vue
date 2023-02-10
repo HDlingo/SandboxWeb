@@ -75,9 +75,6 @@ export default {
       // 关闭弹出层
       this.bol = false;
     },
-    submitBox() {
-      router.push('/SandBox')
-    },
   },
 };
 </script>

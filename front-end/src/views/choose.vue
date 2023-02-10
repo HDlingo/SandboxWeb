@@ -6,21 +6,18 @@
         <el-container>
           <el-header>
             <el-button :style="button2" @click="cancel" class="button2"></el-button>
-            <div style="color:BLACK;font-size:250%;line-height:2em;margin-left:50px">沙盘探索</div>
+            <div style="color:BLACK;font-size:250%;line-height:2em;margin-left:50px">为你的沙盘设置一个喜欢的地形吧</div>
           </el-header>
           <el-main>
-            <div style="line-height:2em;font-size: 20px">这个沙盘是给iland做测试用的</div>
-            <div style="line-height:2em;font-size: 20px">你可以在沙盘中随意摆放喜欢的沙具</div>
-            <div style="line-height:2em;font-size: 20px">在解压的过程中进行心里评测</div>
-            <div style="line-height:2em;font-size: 20px">摆放结束后点击做下角的提交</div>
-            <div style="line-height:2em;font-size: 20px">提交后将有一份问卷功能</div>
-            <div style="line-height:2em;font-size: 20px">大概是这样，文字后续再琢磨</div>
+            <div style="line-height:2em;font-size: 20px">地形</div>
+            <div style="line-height:2em;font-size: 20px">地形</div>
+            <div style="line-height:2em;font-size: 20px">地形</div>
+            <div style="line-height:2em;font-size: 20px">地形</div>
+            <div style="line-height:2em;font-size: 20px">地形</div>
+            <div style="line-height:2em;font-size: 20px">单击</div>
           </el-main>
           <el-footer>
-            <el-button :style="button1" @click="show" class="button1"></el-button>
-            <template v-if="bol">
-              <choose @ok="getData($event)" @cancel="close"></choose>
-            </template>
+            <el-button :style="button1" @click="sure" class="button1"></el-button>
           </el-footer>
         </el-container>
       </div>
@@ -31,14 +28,10 @@
 
 <script>
 import router from "@/router";
-import choose from "./choose.vue";
-import ImgRotatable from "@/components/ImgRotatable";
 
 export default {
   data() {
     return {
-      bol: false,
-      str: '',
       button1:{
         backgroundImage: 'url(' + require('../assets/first/daoyu_next.png') + ')',
         backgroundRepeat: 'no-repeat',
@@ -74,28 +67,12 @@ export default {
       }
     }
   },
-  components: {
-    choose,
-    ImgRotatable,
-  },
   methods: {
     // 点击确定
-    show() {
-      this.bol = true;
+    sure() {
+      router.push('/SandBox')
+      this.$emit('cancel')
     },
-    // 获取数据方法
-    getData(data) {
-      // 关闭弹出层
-      this.bol = false;
-      console.log(data);
-      this.str = data;
-    },
-    // 关闭弹窗
-    close() {
-      // 关闭弹出层
-      this.bol = false;
-    },
-
     // 点击取消
     cancel() {
       this.$emit('cancel')
@@ -132,7 +109,6 @@ export default {
 }
 
 .alert{
-  opacity:0.7;
   border-radius: 25px;
   padding: 20px;
   background: white;

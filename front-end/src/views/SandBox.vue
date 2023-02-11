@@ -17,7 +17,7 @@
 
               <el-drawer
                   v-model="drawer"
-                  direction="ltr"
+                  direction="rtl"
               >
                 <template #header>
                   <h3> Select </h3>

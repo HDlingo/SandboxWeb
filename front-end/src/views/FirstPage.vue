@@ -2,11 +2,14 @@
   <div :style="background" class="bgBackground">
     <div class="common-layout">
       <el-container>
-        <el-header height="365px"></el-header>
+        <el-header height="365px">
+          <img class="gif1" alt="logo" :src="require('../assets/first/begin1.gif')">
+        </el-header>
         <el-container>
           <el-aside width="0px"></el-aside>
           <el-main>
-            <el-button :style="button1" @click="show" class="button1"></el-button>
+
+            <el-button @click="show" class="button1"></el-button>
             <template v-if="bol">
               <tips @ok="getData($event)" @cancel="close"></tips>
             </template>
@@ -30,26 +33,17 @@ export default {
     return {
       bol: false,
       str: '',
-      button1:{
-        backgroundImage: 'url(' + require('../assets/first/kaishi_start.png') + ')',
-        backgroundRepeat: 'no-repeat',
-        // 背景图片大小
-        backgroundSize: 'cover',
-        // 背景颜色
-        backgroundColor: 'transparent',
-        // 背景图片位置
-        backgroundPosition: 'center top'
-      },
+
       // 顶部导航背景图片配置
       background: {
         // 背景图片地址
-        backgroundImage: 'url(' + require('../assets/first/kaishi_bgnew.png') + ')',
+        backgroundImage: 'url(' + require('../assets/first/kaishibg2.10.png') + ')',
         // 背景图片是否重复
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
         backgroundSize: 'cover',
         // 背景颜色
-        backgroundColor: 'transparent',
+        backgroundColor: 'white',
         // 背景图片位置
         backgroundPosition: 'center top'
       }
@@ -91,6 +85,31 @@ export default {
   width:180px;
   height:60px;
   border:none;
+  background-image: url("../assets/first/kaishi_start.png");
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  -moz-background-size:100% 100%;
+  background-color: transparent;
 }
+.button1:hover{
+  position: relative;
+  left: 0;
+  top:0;
+  width:180px;
+  height:60px;
+  border:none;
+  background-image: url("../assets/first/click_motion2.10.gif");
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  -moz-background-size:100% 100%;
+  background-color: transparent;
+}
+.gif1{
+  position: relative;
+  left: 0;
+  top:0;
+  width:800px;
+  height:500px;
 
+}
 </style>

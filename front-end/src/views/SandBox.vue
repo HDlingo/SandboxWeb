@@ -9,12 +9,10 @@
           <template v-if="bol">
             <course @ok="getData($event)" @cancel="close"></course>
           </template>
-
         </el-header>
         <el-container>
           <el-container>
             <el-main>
-
               <el-drawer
                   v-model="drawer"
                   direction="rtl"
@@ -48,7 +46,6 @@
                   </div>
                 </div>
               </div>
-
             </el-main>
             <el-footer>
               <el-button :style="button5" @click="submitBox()" class="button5"></el-button>
@@ -63,9 +60,6 @@
         </el-container>
       </el-container>
     </div>
-
-
-
   </div>
 </template>
 <script>
@@ -139,7 +133,7 @@ export default {
       toyActiveNumber: 0,
       toyActiveList: [],
       sandBoxBlockOrder: [
-        0, 0, 0, 0, 1, 1, 1, 0, 1
+        0, 0, 0, 0, 1, 1, 1, 0, 2
       ],
       toyList: [
         {
@@ -184,10 +178,13 @@ export default {
       ],
       sandBoxBlockList: [
         {
-          url: require("../assets/grass.jpg")
+          url: require("../assets/sandBoxBlocks/grass.jpg")
         },
         {
-          url: require("../assets/ground.jpg")
+          url: require("../assets/sandBoxBlocks/ground.jpg")
+        },
+        {
+          url: require("../assets/sandBoxBlocks/sand.png")
         }
       ],
     }
@@ -273,21 +270,20 @@ export default {
   height:600px;
 }
 .map{
-  margin: 0;
+  margin: 20px;
   display: grid;
   place-content: center;
 }
 .gallery {
   box-shadow:  25px 25px 30px #b8b8b8,
-  -25px -25px 30px #ffffff;
-  --s: 40px; /* control the size */
+  -25px -25px 30px #d1e1fe;
+  --s: 80px; /* control the size */
   display: grid;
   grid: auto-flow var(--s) / repeat(3, var(--s));
   gap: 0px;
   place-items: center;
   margin: calc(var(--s) / 3);
   transform: rotate(35deg) skew(-10deg, -10deg);
-
 }
 
 .gallery > img {

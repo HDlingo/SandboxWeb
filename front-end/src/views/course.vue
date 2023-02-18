@@ -11,7 +11,9 @@
 
           </el-main>
           <el-footer>
-            <el-button :style="button1" @click="sure" class="button1"></el-button>
+            <button @click="sure">
+              <span class="text">开 始 旅 程</span>
+            </button>
           </el-footer>
         </el-container>
       </div>
@@ -26,16 +28,6 @@ import router from "@/router";
 export default {
   data() {
     return {
-      button1:{
-        backgroundImage: 'url(' + require('../assets/first/jiaocheng_start.png') + ')',
-        backgroundRepeat: 'no-repeat',
-        // 背景图片大小
-        backgroundSize: 'cover',
-        // 背景颜色
-        backgroundColor: 'transparent',
-        // 背景图片位置
-        backgroundPosition: 'center top'
-      },
       button2:{
         backgroundImage: 'url(' + require('../assets/first/jiaocheng_close.png') + ')',
         backgroundRepeat: 'no-repeat',
@@ -99,15 +91,6 @@ export default {
   z-index: 1000;
 }
 
-.button1{
-  position: relative;
-  left: 0;
-  top:0;
-  width:200px;
-  height:50px;
-  border:none;
-  z-index:10;
-}
 .button2{
   position: relative;
   left: -20px;
@@ -116,5 +99,57 @@ export default {
   height:60px;
   border:none;
   float:right;
+}
+
+button {
+  position: relative;
+  left: 20vw;
+  top:0vh;
+  border:none;
+  z-index:10;
+  align-items: center;
+  background-image: linear-gradient(144deg,#a280ff, #6b65d6,#5b4cc9);
+  border: 0;
+  border-radius: 80px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 18px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all .3s;
+
+}
+
+button:active,
+button:hover {
+  outline: 0;
+}
+
+button span {
+  padding: 16px 24px;
+  border-radius: 80px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+button:hover span {
+  background: none;
+}
+
+button:active {
+  transform: scale(0.9);
 }
 </style>

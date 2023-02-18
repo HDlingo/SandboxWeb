@@ -5,7 +5,6 @@
       <div class="common-layout">
         <el-container>
           <el-header height="300px">
-            <el-button :style="button2" @click="cancel" class="button2"></el-button>
           </el-header>
             <div class="box">
               <div v-for="(blockType,index) in this.blockSelectList"
@@ -15,7 +14,10 @@
               ></div>
             </div>
           <el-footer>
-            <el-button :style="button1" @click="sure" class="button1"></el-button>
+
+            <button @click="sure">
+              <span class="text">下 一 步</span>
+            </button>
           </el-footer>
         </el-container>
       </div>
@@ -34,26 +36,6 @@ export default {
       blockTypeNum: 2,
       blockColorMap: ["#8cb4f2", "#fff1dc"],
       blockSelectList:[0,0,0,0,0,0,0,0,0],
-      button1:{
-        backgroundImage: 'url(' + require('../assets/first/daoyu_next.png') + ')',
-        backgroundRepeat: 'no-repeat',
-        // 背景图片大小
-        backgroundSize: 'cover',
-        // 背景颜色
-        backgroundColor: 'transparent',
-        // 背景图片位置
-        backgroundPosition: 'center top'
-      },
-      button2:{
-        backgroundImage: 'url(' + require('../assets/first/jiaocheng_close.png') + ')',
-        backgroundRepeat: 'no-repeat',
-        // 背景图片大小
-        backgroundSize: 'cover',
-        // 背景颜色
-        backgroundColor: 'transparent',
-        // 背景图片位置
-        backgroundPosition: 'center top'
-      },
       background: {
         // 背景图片地址
         backgroundImage: 'url(' + require('../assets/first/kaishibg2.10.png') + ')',
@@ -207,6 +189,59 @@ export default {
 }
 .box > div:nth-child(9) {
   border-radius: 0 0 10px 0;
+}
+
+
+button {
+  position: relative;
+  left: 20vw;
+  top:-13vh;
+  border:none;
+  z-index:10;
+  align-items: center;
+  background-image: linear-gradient(144deg,#a280ff, #6b65d6,#5b4cc9);
+  border: 0;
+  border-radius: 80px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 18px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all .3s;
+
+}
+
+button:active,
+button:hover {
+  outline: 0;
+}
+
+button span {
+  padding: 16px 24px;
+  border-radius: 80px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+button:hover span {
+  background: none;
+}
+
+button:active {
+  transform: scale(0.9);
 }
 
 </style>

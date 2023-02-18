@@ -133,7 +133,7 @@ export default {
       toyActiveNumber: 0,
       toyActiveList: [],
       sandBoxBlockOrder: [
-        0, 0, 0, 0, 1, 1, 1, 0, 2
+        2, 0, 0, 0, 1, 2, 1, 2, 0
       ],
       toyList: [
         {
@@ -178,15 +178,91 @@ export default {
       ],
       sandBoxBlockList: [
         {
-          url: require("../assets/sandBoxBlocks/grass.jpg")
+          type: '1',
+          url: require("../assets/sandBoxBlocks/1.png")
         },
         {
-          url: require("../assets/sandBoxBlocks/ground.jpg")
+          type:'0_0000',
+          url: require("../assets/sandBoxBlocks/0_0000.png")
         },
         {
-          url: require("../assets/sandBoxBlocks/sand.png")
+          type:'0_0001',
+          url: require("../assets/sandBoxBlocks/0_0001.png")
+        },
+        {
+          type: '0_0001',
+          url: require("../assets/sandBoxBlocks/0_0001.png")
+        },
+        {
+          type: '0_0010',
+          url: require("../assets/sandBoxBlocks/0_0010.png")
+        },
+        {
+          type: '0_0011',
+          url: require("../assets/sandBoxBlocks/0_0011.png")
+        },
+        {
+          type: '0_0100',
+          url: require("../assets/sandBoxBlocks/0_0100.png")
+        },
+        {
+          type: '0_0101',
+          url: require("../assets/sandBoxBlocks/0_0101.png")
+        },
+        {
+          type: '0_0110',
+          url: require("../assets/sandBoxBlocks/0_0110.png")
+        },
+        {
+          type: '0_0111',
+          url: require("../assets/sandBoxBlocks/0_0111.png")
+        },
+        {
+          type: '0_1000',
+          url: require("../assets/sandBoxBlocks/0_1000.png")
+        },
+        {
+          type: '0_1001',
+          url: require("../assets/sandBoxBlocks/0_1001.png")
+        },
+        {
+          type: '0_1010',
+          url: require("../assets/sandBoxBlocks/0_1010.png")
+        },
+        {
+          type: '0_1011',
+          url: require("../assets/sandBoxBlocks/0_1011.png")
+        },
+        {
+          type: '0_1100',
+          url: require("../assets/sandBoxBlocks/0_1100.png")
+        },
+        {
+          type: '0_1101',
+          url: require("../assets/sandBoxBlocks/0_1101.png")
+        },
+        {
+          type: '0_1110',
+          url: require("../assets/sandBoxBlocks/0_1110.png")
+        },
+        {
+          type: '0_1111',
+          url: require("../assets/sandBoxBlocks/0_1111.png")
         }
       ],
+    }
+  },
+  created() {
+    let blockSelectList = this.$store.state.blockSelectList;
+    console.log(blockSelectList)
+    // 初始化SandBoxBlockOrder
+    for (let i = 0; i < blockSelectList.length; i++) {
+      for(let j = 0; j < this.sandBoxBlockList.length; j++){
+        if(blockSelectList[i] == this.sandBoxBlockList[j].type){
+          this.sandBoxBlockOrder[i] = j;
+          break;
+        }
+      }
     }
   },
   methods: {

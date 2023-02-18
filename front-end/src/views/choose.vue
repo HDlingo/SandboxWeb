@@ -72,9 +72,49 @@ export default {
   methods: {
     // 点击确定
     sure() {
-      router.push('/SandBox')
-      alert(this.blockSelectList)
-      this.$emit('cancel')
+      let blockSelectList = this.blockSelectList
+      let blockSelectList_3x3 = []
+      for(let i=0;i<3;i++){
+        blockSelectList_3x3[i] = []
+        for(let j=0;j<3;j++){
+          blockSelectList_3x3[i][j] = blockSelectList[i*3+j]
+        }
+      }
+      let blockSelectList_3x3_2 = []
+      for(let i=0;i<3;i++){
+        blockSelectList_3x3_2[i] = []
+        for(let j=0;j<3;j++){
+          blockSelectList_3x3_2[i][j] = blockSelectList_3x3[i][j].toString()
+          if(blockSelectList_3x3[i][j] === 0){
+            if(i-1>=0 && blockSelectList_3x3[i-1][j] === 1){
+              blockSelectList_3x3_2[i][j] += '_1'
+            }else{
+              blockSelectList_3x3_2[i][j] += '_0'
+            }
+            if(j-1>=0 && blockSelectList_3x3[i][j-1] === 1){
+              blockSelectList_3x3_2[i][j] += '1'
+            }else{
+              blockSelectList_3x3_2[i][j] += '0'
+            }
+            if(i+1<=2 && blockSelectList_3x3[i+1][j] === 1){
+              blockSelectList_3x3_2[i][j] += '1'
+            }else{
+              blockSelectList_3x3_2[i][j] += '0'
+            }
+            if(j+1<=2 && blockSelectList_3x3[i][j+1] === 1){
+              blockSelectList_3x3_2[i][j] += '1'
+            }else{
+              blockSelectList_3x3_2[i][j] += '0'
+            }
+          }
+        }
+      }
+      // 将blockSelectList_3x3_2转为一维数组
+      blockSelectList_3x3_2 = blockSelectList_3x3_2.flat()
+      this.$store.commit('setBlockSelectList',blockSelectList_3x3_2)
+      router.push({
+        name: 'SandBox',
+      })
     },
     // 点击取消
     cancel() {

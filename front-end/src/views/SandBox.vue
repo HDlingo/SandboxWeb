@@ -12,7 +12,7 @@
         </el-header>
         <el-container>
           <el-container>
-            <el-main>
+            <el-main style="overflow: hidden">
               <el-drawer
                   v-model="drawer"
                   direction="rtl"
@@ -37,7 +37,10 @@
                   </div>
                 </el-scrollbar>
               </el-drawer>
-              <div>
+              <div class="canvasField vue-drag-scroll-out-wrapper"
+                   @wheel="editCanvasScale"
+                   v-dragscroll="{'active':this.canvasDraggable}"
+              >
                 <div v-for="i in this.toyActiveNumber+1" :key="i" :id="i">
                 </div>
                 <div class="map">
@@ -67,16 +70,22 @@ import ImgRotatable from "@/components/ImgRotatable";
 import {render, h} from "vue";
 import {ElMessage} from 'element-plus'
 import course from "./course.vue";
+import {dragscroll} from "vue-dragscroll";
 
 export default {
+  directives:{
+    'dragscroll': dragscroll
+  },
   components: {
     course,
     ImgRotatable
   },
   data() {
     return {
+      canvasDraggable: true,
       bol: true,
       str: '',
+      canvasScale: 1,
       button3:{
         backgroundImage: 'url(' + require('../assets/first/shapan_help.png') + ')',
         backgroundRepeat: 'no-repeat',
@@ -281,7 +290,14 @@ export default {
       // 关闭弹出层
       this.bol = false;
     },
-
+    // 在编辑图片时停止沙盘的拖拽指令
+    stopCanvasDrag() {
+      this.canvasDraggable = false;
+    },
+    // 在编辑图片完毕时恢复沙盘的拖拽指令
+    resumeCanvasDrag() {
+      this.canvasDraggable = true;
+    },
     createNewImgRotate(name) {
       //生成唯一ID并记录
       let newId = Symbol();
@@ -298,6 +314,8 @@ export default {
         key: this.toyActiveNumber,
         onSavePos: this.savePosHandler,
         onRemoveToy: this.removeToyComponent,
+        onEditStart: this.stopCanvasDrag,
+        onEditEnd: this.resumeCanvasDrag
       },);
       instance.appContext = app._context;
       render(instance, parent);
@@ -336,6 +354,19 @@ export default {
     },
     submitBox() {
       console.log(this.toyActiveList)
+    },
+    editCanvasScale(e){
+      e.preventDefault();
+      if (e.deltaY > 0) {
+        // 缩小
+        if(this.canvasScale <= 1){
+          return;
+        }
+        this.canvasScale -= 0.1;
+      } else {
+        // 放大
+        this.canvasScale += 0.1;
+      }
     }
   }
 }
@@ -346,9 +377,10 @@ export default {
   height:600px;
 }
 .map{
-  margin: 20px;
-  display: grid;
-  place-content: center;
+  width: fit-content;
+  height: 100%;
+  padding: 30px;
+  margin: 20px 20px 20px 30vw;
 }
 .gallery {
   box-shadow:  25px 25px 30px #b8b8b8,
@@ -359,7 +391,7 @@ export default {
   gap: 0px;
   place-items: center;
   margin: calc(var(--s) / 3);
-  transform: rotate(35deg) skew(-10deg, -10deg);
+  transform: rotate(35deg) skew(-10deg, -10deg);;
 }
 
 .gallery > img {
@@ -370,6 +402,12 @@ export default {
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0 50%);
   cursor: pointer;
   transition: .2s linear;
+}
+
+.canvasField{
+  scale: v-bind(canvasScale);
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .img-field {
@@ -427,5 +465,14 @@ export default {
   width:50px;
   height:100%;
   border:none;
+}
+.vue-drag-scroll-out-wrapper{
+  /* &::-webkit-scrollbar { width: 0 !important } */
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: fit-content;
+  height: 100%;
+  cursor: grab;
+  padding:10px;
 }
 </style>

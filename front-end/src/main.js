@@ -7,7 +7,7 @@ import 'element-plus/dist/index.css'
 const app = createApp(App).use(store).use(router).use(ElementPlus)
 app.mount('#app')
 app.directive('dragscroll', function (el,binding) {
-    if(binding.value.active==false){
+    if(binding.value.active===false){
         return
     }
     el.onmousedown = function (ev) {

@@ -1,55 +1,57 @@
 <template>
-  <div :style="background" class="sandBox" >
+  <div :style="background" class="sandBox">
+    <div id="box" class="canvasField vue-drag-scroll-out-wrapper"
+         @wheel="editCanvasScale">
+      <!--         v-dragscroll="{'active':this.canvasDraggable}"-->
+      <DDR :active = this.boxMovable :resizable="false" :rotatable="false" @dblclick="changeBoxMovable">
+        <div v-for="i in this.toyActiveNumber+1" :key="i" :id="i">
+        </div>
+        <div class="map" >
+          <div class="gallery">
+            <img :src="this.sandBoxBlockList[blockIndex].url" alt="a sandbox map block"
+                 v-for="blockIndex in this.sandBoxBlockOrder" :key="blockIndex">
+          </div>
+        </div>
+      </DDR>
+    </div>
     <div class="common-layout">
       <el-container>
         <el-header height="100px">
           <el-button :style="button3" @click="show" class="button3"></el-button>
           <el-button :style="button4" @click="show" class="button4"></el-button>
-
+          <el-button class="fix_button" type="primary" @click="this.boxMovable=!this.boxMovable" >{{ MoveStatus }}</el-button>
           <template v-if="bol">
             <course @ok="getData($event)" @cancel="close"></course>
           </template>
         </el-header>
         <el-container>
           <el-container>
-            <el-main style="overflow: hidden">
-              <el-drawer
-                  v-model="drawer"
-                  direction="rtl"
-              >
-                <template #header>
-                  <h3> Select </h3>
-                </template>
-                <el-scrollbar>
-                  <div>
-                    <el-row v-for="(toy,index) in toyList" :key="index">
-                      <el-col :span="12" v-if="index*2<toyList.length">
-                        <div class="img-field" @click="createNewImgRotate(toyList[2*index].name)">
-                          <img class="img-item" :src="require('../assets/'+toyList[2*index].name)">
-                        </div>
-                      </el-col>
-                      <el-col :span="12" v-if="index*2+1 < toyList.length">
-                        <div class="img-field" @click="createNewImgRotate(toyList[2*index+1].name)">
-                          <img class="img-item" :src="require('../assets/'+toyList[2*index+1].name)">
-                        </div>
-                      </el-col>
-                    </el-row>
-                  </div>
-                </el-scrollbar>
-              </el-drawer>
-              <div class="canvasField vue-drag-scroll-out-wrapper"
-                   @wheel="editCanvasScale"
-                   v-dragscroll="{'active':this.canvasDraggable}"
-              >
-                <div v-for="i in this.toyActiveNumber+1" :key="i" :id="i">
+            <el-drawer
+                v-model="drawer"
+                direction="rtl"
+                style="user-select: none"
+            >
+              <template #header>
+                <h3> Select </h3>
+              </template>
+              <el-scrollbar>
+                <div>
+                  <el-row v-for="(toy,index) in toyList" :key="index">
+                    <el-col :span="12" v-if="index*2<toyList.length">
+                      <div class="img-field" @click="createNewImgRotate(toyList[2*index].name)">
+                        <img class="img-item" :src="require('../assets/'+toyList[2*index].name)">
+                      </div>
+                    </el-col>
+                    <el-col :span="12" v-if="index*2+1 < toyList.length">
+                      <div class="img-field" @click="createNewImgRotate(toyList[2*index+1].name)">
+                        <img class="img-item" :src="require('../assets/'+toyList[2*index+1].name)">
+                      </div>
+                    </el-col>
+                  </el-row>
                 </div>
-                <div class="map">
-                  <div class="gallery" >
-                    <img :src="this.sandBoxBlockList[blockIndex].url" alt="a sandbox map block" v-for="blockIndex in this.sandBoxBlockOrder" :key="blockIndex">
-                  </div>
-                </div>
-              </div>
-            </el-main>
+              </el-scrollbar>
+            </el-drawer>
+
             <el-footer>
               <el-button :style="button5" @click="submitBox()" class="button5"></el-button>
             </el-footer>
@@ -58,11 +60,11 @@
           <el-aside width="200px">
             <el-button :style="button6" @click="drawer=!drawer" class="button6"></el-button>
             <img class="img1" :src="require('../assets/box/shaju_drawer.png')">
-
           </el-aside>
         </el-container>
       </el-container>
     </div>
+
   </div>
 </template>
 <script>
@@ -71,22 +73,26 @@ import {render, h} from "vue";
 import {ElMessage} from 'element-plus'
 import course from "./course.vue";
 import {dragscroll} from "vue-dragscroll";
-
+import 'yoyoo-ddr-vue3/dist/yoyoo-ddr-vue3.css'
+import DDR from 'yoyoo-ddr-vue3'
 export default {
-  directives:{
+  directives: {
     'dragscroll': dragscroll
   },
   components: {
     course,
-    ImgRotatable
+    ImgRotatable,
+    DDR,
+    ElMessage
   },
   data() {
     return {
+      boxMovable: false,
       canvasDraggable: true,
       bol: true,
       str: '',
       canvasScale: 1,
-      button3:{
+      button3: {
         backgroundImage: 'url(' + require('../assets/first/shapan_help.png') + ')',
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
@@ -96,7 +102,7 @@ export default {
         // 背景图片位置
         backgroundPosition: 'center top'
       },
-      button4:{
+      button4: {
         backgroundImage: 'url(' + require('../assets/first/shapan_setting.png') + ')',
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
@@ -106,7 +112,7 @@ export default {
         // 背景图片位置
         backgroundPosition: 'center top'
       },
-      button5:{
+      button5: {
         backgroundImage: 'url(' + require('../assets/first/shapan_submit.png') + ')',
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
@@ -116,7 +122,7 @@ export default {
         // 背景图片位置
         backgroundPosition: 'center top'
       },
-      button6:{
+      button6: {
         backgroundImage: 'url(' + require('../assets/box/shaju_open.png') + ')',
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
@@ -191,11 +197,11 @@ export default {
           url: require("../assets/sandBoxBlocks/1.png")
         },
         {
-          type:'0_0000',
+          type: '0_0000',
           url: require("../assets/sandBoxBlocks/0_0000.png")
         },
         {
-          type:'0_0001',
+          type: '0_0001',
           url: require("../assets/sandBoxBlocks/0_0001.png")
         },
         {
@@ -261,13 +267,24 @@ export default {
       ],
     }
   },
+
+  computed: {
+    MoveStatus(){
+      if(this.boxMovable){
+        return 'Editing'
+      }
+      else{
+        return 'Locked'
+      }
+    }
+  },
   created() {
     let blockSelectList = this.$store.state.blockSelectList;
     console.log(blockSelectList)
     // 初始化SandBoxBlockOrder
     for (let i = 0; i < blockSelectList.length; i++) {
-      for(let j = 0; j < this.sandBoxBlockList.length; j++){
-        if(blockSelectList[i] == this.sandBoxBlockList[j].type){
+      for (let j = 0; j < this.sandBoxBlockList.length; j++) {
+        if (blockSelectList[i] == this.sandBoxBlockList[j].type) {
           this.sandBoxBlockOrder[i] = j;
           break;
         }
@@ -277,6 +294,23 @@ export default {
   methods: {
     show() {
       this.bol = true;
+    },
+    changeBoxMovable(){
+      this.boxMovable = !this.boxMovable;
+      if (this.boxMovable) {
+        ElMessage({
+          message: '沙盘编辑已开启',
+          type: 'success'
+        });
+        this.MoveStatus = 'Editing'
+      }
+      else{
+        ElMessage({
+          message: '沙盘编辑已关闭',
+          type: 'success'
+        });
+        this.MoveStatus = 'Locked'
+      }
     },
     // 获取数据方法
     getData(data) {
@@ -292,11 +326,11 @@ export default {
     },
     // 在编辑图片时停止沙盘的拖拽指令
     stopCanvasDrag() {
-      this.canvasDraggable = false;
+      this.boxMovable = false;
     },
     // 在编辑图片完毕时恢复沙盘的拖拽指令
     resumeCanvasDrag() {
-      this.canvasDraggable = true;
+      this.boxMovable = true;
     },
     createNewImgRotate(name) {
       //生成唯一ID并记录
@@ -355,11 +389,11 @@ export default {
     submitBox() {
       console.log(this.toyActiveList)
     },
-    editCanvasScale(e){
+    editCanvasScale(e) {
       e.preventDefault();
       if (e.deltaY > 0) {
         // 缩小
-        if(this.canvasScale <= 1){
+        if (this.canvasScale <= 1) {
           return;
         }
         this.canvasScale -= 0.1;
@@ -371,19 +405,23 @@ export default {
   }
 }
 </script>
-<style >
+<style>
 .sandBox {
-  width:100%;
-  height:600px;
+  width: 100%;
+  height: 100%;
 }
-.map{
+
+.map {
+  user-select:none;
+  float: left;
   width: fit-content;
   height: 100%;
   padding: 30px;
   margin: 20px 20px 20px 30vw;
 }
+
 .gallery {
-  box-shadow:  25px 25px 30px #b8b8b8,
+  box-shadow: 25px 25px 30px #b8b8b8,
   -25px -25px 30px #d1e1fe;
   --s: 80px; /* control the size */
   display: grid;
@@ -404,7 +442,7 @@ export default {
   transition: .2s linear;
 }
 
-.canvasField{
+.canvasField {
   scale: v-bind(canvasScale);
   overflow-y: hidden;
   overflow-x: hidden;
@@ -418,61 +456,79 @@ export default {
 .img-item {
   width: 100%;
 }
-.button3{
+
+.button3 {
   position: absolute;
   margin-top: 25px;
   margin-left: 20px;
   left: 0;
-  top:0;
-  width:50px;
-  height:50px;
-  border:none;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  border: none;
 }
 
-.button4{
+.button4 {
   position: absolute;
   margin-top: 35px;
   margin-left: 90px;
   left: 8px;
-  top:40px;
-  width:50px;
-  height:50px;
-  border:none;
+  top: 40px;
+  width: 50px;
+  height: 50px;
+  border: none;
 }
 
-.button5{
+.button5 {
   position: absolute;
   margin-top: 0;
   margin-left: 90px;
   left: 8px;
-  top:480px;
-  width:200px;
-  height:55px;
-  border:none;
+  top: 480px;
+  width: 200px;
+  height: 55px;
+  border: none;
 }
-.button6{
+
+.button6 {
   position: absolute;
   margin-left: 10px;
-  top:40px;
-  width:50px;
-  height:50px;
-  border:none;
+  top: 40px;
+  width: 50px;
+  height: 50px;
+  border: none;
 }
-.img1{
+
+.img1 {
   position: absolute;
   margin-left: 50px;
-  top:0;
-  width:50px;
-  height:100%;
-  border:none;
+  top: 0;
+  width: 50px;
+  height: 100%;
+  border: none;
 }
-.vue-drag-scroll-out-wrapper{
+
+.vue-drag-scroll-out-wrapper {
   /* &::-webkit-scrollbar { width: 0 !important } */
   overflow-x: hidden;
   overflow-y: hidden;
   width: fit-content;
   height: 100%;
   cursor: grab;
-  padding:10px;
+  padding: 10px;
+}
+.fix_button{
+  position: absolute;
+  top: 20vh;
+  left: 0;
+  margin: 20px;
+  z-index: 999;
+}
+#box {
+  /*width: 100%;*/
+  /*height: 100%;*/
+  /*overflow: hidden;*/
+  width: 100%;
+  height: 100vh;
 }
 </style>

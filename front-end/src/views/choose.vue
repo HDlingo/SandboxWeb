@@ -46,7 +46,7 @@ export default {
         // 背景颜色
         backgroundColor: 'transparent',
         // 背景图片位置
-        backgroundPosition: 'center top',
+        backgroundPosition: 'center',
 
       }
     }
@@ -134,43 +134,26 @@ export default {
 }
 
 .alert{
-
   background-image: url("../assets/first/hailu2.10.png");
   background-repeat:no-repeat;
   background-size:100% 100%;
   -moz-background-size:100% 100%;
   background-color: transparent;
-  width: 695px;
-  height: 450px;
+  left: 23%;
+  top: 30%;
+  width: 54%;
+  height: 64%;
   z-index: 1000;
 }
 
-.button1{
-  position: relative;
-  left: -0.5vw;
-  top:-17vh;
-  width:220px;
-  height:60px;
-  border:none;
-  z-index:10;
-}
-.button2{
-  position: relative;
-  left: -20px;
-  top:20px;
-  width:60px;
-  height:60px;
-  border:none;
-  float:right;
-}
 
 .box {
   position: absolute;
-  left: 41.7%;
-  top: 33.5%;
+  left: 43%;
+  top: 37%;
   display: grid;
-  height: 15vw;
-  width: 15vw;
+  height: 13vw;
+  width: 13vw;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
 }
@@ -194,8 +177,8 @@ export default {
 
 button {
   position: absolute;
-  left: 41.5%;
-  top: 66%;
+  left: 42.3%;
+  top: 67%;
   border:none;
   z-index:10;
   align-items: center;

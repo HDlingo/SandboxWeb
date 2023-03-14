@@ -19,7 +19,7 @@
         <el-header height="100px">
           <el-button :style="button3" @click="show" class="button3"></el-button>
           <el-button :style="button4" @click="show" class="button4"></el-button>
-          <el-button class="fix_button" type="primary" @click="this.boxMovable=!this.boxMovable" >{{ MoveStatus }}</el-button>
+          <el-button :style="fix_button" id="myImage" class="fix_button" @click="this.boxMovable=!this.boxMovable" >{{ MoveStatus }}</el-button>
           <template v-if="bol">
             <course @ok="getData($event)" @cancel="close"></course>
           </template>
@@ -100,7 +100,7 @@ export default {
         // 背景颜色
         backgroundColor: 'transparent',
         // 背景图片位置
-        backgroundPosition: 'center top'
+        backgroundPosition: 'center'
       },
       button4: {
         backgroundImage: 'url(' + require('../assets/first/shapan_setting.png') + ')',
@@ -110,7 +110,7 @@ export default {
         // 背景颜色
         backgroundColor: 'transparent',
         // 背景图片位置
-        backgroundPosition: 'center top'
+        backgroundPosition: 'center'
       },
       button5: {
         backgroundImage: 'url(' + require('../assets/first/shapan_submit.png') + ')',
@@ -120,7 +120,7 @@ export default {
         // 背景颜色
         backgroundColor: 'transparent',
         // 背景图片位置
-        backgroundPosition: 'center top'
+        backgroundPosition: 'center'
       },
       button6: {
         backgroundImage: 'url(' + require('../assets/box/shaju_open.png') + ')',
@@ -130,7 +130,17 @@ export default {
         // 背景颜色
         backgroundColor: 'transparent',
         // 背景图片位置
-        backgroundPosition: 'center top'
+        backgroundPosition: 'center'
+      },
+      fix_button: {
+        backgroundImage: 'url(' + require('../assets/first/editing1.png') + ')',
+        backgroundRepeat: 'no-repeat',
+        // 背景图片大小
+        backgroundSize: 'cover',
+        // 背景颜色
+        backgroundColor: 'transparent',
+        // 背景图片位置
+        backgroundPosition: 'center'
       },
       background: {
         // 背景图片地址
@@ -142,7 +152,7 @@ export default {
         // 背景颜色
         backgroundColor: 'transparent',
         // 背景图片位置
-        backgroundPosition: 'center top'
+        backgroundPosition: 'center'
       },
       drawer: false,
       toyActiveNumber: 0,
@@ -303,6 +313,7 @@ export default {
           type: 'success'
         });
         this.MoveStatus = 'Editing'
+        document.getElementById( 'myImage').backgroundImage =' url(' + require('../assets/first/editing0.png') + ')';
       }
       else{
         ElMessage({
@@ -459,51 +470,45 @@ export default {
 
 .button3 {
   position: absolute;
-  margin-top: 25px;
-  margin-left: 20px;
-  left: 0;
-  top: 0;
-  width: 50px;
-  height: 50px;
+  left: 2%;
+  top: 4%;
+  width: 4vw;
+  height: 4vw;
   border: none;
 }
 
 .button4 {
   position: absolute;
-  margin-top: 35px;
-  margin-left: 90px;
-  left: 8px;
-  top: 40px;
-  width: 50px;
-  height: 50px;
+  left: 1.1%;
+  top: 12%;
+  width: 4vw;
+  height: 4vw;
   border: none;
 }
 
 .button5 {
   position: absolute;
-  margin-top: 0;
-  margin-left: 90px;
-  left: 8px;
-  top: 480px;
-  width: 200px;
-  height: 55px;
+  left: 1.1%;
+  top: 90%;
+  width: 15vw;
+  height: 4vw;
   border: none;
 }
 
 .button6 {
   position: absolute;
-  margin-left: 10px;
-  top: 40px;
-  width: 50px;
-  height: 50px;
+  margin-left: 0%;
+  top: 5%;
+  width: 5vw;
+  height: 5vw;
   border: none;
 }
 
 .img1 {
   position: absolute;
-  margin-left: 50px;
+  margin-left: 4%;
   top: 0;
-  width: 50px;
+  width: 5vw;
   height: 100%;
   border: none;
 }
@@ -517,12 +522,14 @@ export default {
   cursor: grab;
   padding: 10px;
 }
+
 .fix_button{
   position: absolute;
-  top: 20vh;
-  left: 0;
-  margin: 20px;
-  z-index: 999;
+  left: 1.1%;
+  top: 20%;
+  width: 4vw;
+  height: 4vw;
+  border: none;
 }
 #box {
   /*width: 100%;*/

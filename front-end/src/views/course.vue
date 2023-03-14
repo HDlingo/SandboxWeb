@@ -4,11 +4,7 @@
       <!-- 按钮 -->
       <div class="common-layout">
         <el-container>
-          <el-header height="300px">
-            <el-button :style="button2" @click="cancel" class="button2"></el-button>
-          </el-header>
           <el-main>
-
           </el-main>
           <el-footer>
             <button @click="sure">
@@ -86,25 +82,17 @@ export default {
   background-size:100% 100%;
   -moz-background-size:100% 100%;
   background-color: transparent;
-  width: 695px;
-  height: 450px;
+  left: 23%;
+  top: 30%;
+  width: 54%;
+  height: 64%;
   z-index: 1000;
 }
 
-.button2{
-  position: relative;
-  left: -20px;
-  top:20px;
-  width:60px;
-  height:60px;
-  border:none;
-  float:right;
-}
-
 button {
-  position: relative;
-  left: 20vw;
-  top:0vh;
+  position: absolute;
+  left: 42.5%;
+  top: 66%;
   border:none;
   z-index:10;
   align-items: center;
@@ -116,11 +104,10 @@ button {
   color: #FFFFFF;
   display: flex;
   font-family: Phantomsans, sans-serif;
-  font-size: 18px;
+  font-size: 1.2vw;
   justify-content: center;
   line-height: 1em;
-  max-width: 100%;
-  min-width: 140px;
+  width: 15vw;
   padding: 3px;
   text-decoration: none;
   user-select: none;
@@ -129,7 +116,6 @@ button {
   white-space: nowrap;
   cursor: pointer;
   transition: all .3s;
-
 }
 
 button:active,

@@ -80,8 +80,11 @@ export default {
 button {
   width: 9.9em;
   height: 3em;
-  font-size: 16px;
-  position: relative;
+  font-size: 1.2vw;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   margin: auto;
   padding: 1em 2.5em 1em 2.5em;
   border: none;
@@ -95,7 +98,7 @@ button:hover{
   background: linear-gradient(to right,#fce9ff,#dad9ff);
 }
 button:active {
-  transform: scale(0.95);
+  transform: scale(0.95)translate(-52.5%, -52.5%);
 }
 
 button span {
@@ -128,8 +131,7 @@ button:hover .border {
   position: relative;
   left: 0;
   top:0;
-  width:800px;
-  height:500px;
-
+  width:65vw;
+  height:40vw;
 }
 </style>

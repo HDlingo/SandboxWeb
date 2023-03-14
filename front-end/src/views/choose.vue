@@ -165,12 +165,12 @@ export default {
 }
 
 .box {
-  position: relative;
-  left: 16.5vw;
-  top:-22vh;
+  position: absolute;
+  left: 41.7%;
+  top: 33.5%;
   display: grid;
-  height: 21vh;
-  width: 21vh;
+  height: 15vw;
+  width: 15vw;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
 }
@@ -193,9 +193,9 @@ export default {
 
 
 button {
-  position: relative;
-  left: 20vw;
-  top:-13vh;
+  position: absolute;
+  left: 41.5%;
+  top: 66%;
   border:none;
   z-index:10;
   align-items: center;
@@ -210,8 +210,7 @@ button {
   font-size: 18px;
   justify-content: center;
   line-height: 1em;
-  max-width: 100%;
-  min-width: 140px;
+  width: 15vw;
   padding: 3px;
   text-decoration: none;
   user-select: none;

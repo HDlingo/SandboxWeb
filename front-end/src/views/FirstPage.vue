@@ -2,13 +2,9 @@
   <div :style="background" class="bgBackground">
     <div class="common-layout">
       <el-container>
-        <el-header height="365px">
+        <el-header height="100vh">
           <img class="gif1" alt="logo" :src="require('../assets/first/begin1.gif')">
-        </el-header>
-        <el-container>
-          <el-aside width="0px"></el-aside>
-          <el-main>
-
+          <div>
             <el-button @click="show" class="full-rounded">
               <span>沙 盘 探 索</span>
               <div class="border full-rounded"></div>
@@ -17,9 +13,8 @@
             <template v-if="bol">
               <tips @ok="getData($event)" @cancel="close"></tips>
             </template>
-
-          </el-main>
-        </el-container>
+          </div>
+        </el-header>
       </el-container>
     </div>
   </div>
@@ -43,12 +38,12 @@ export default {
         backgroundImage: 'url(' + require('../assets/first/kaishibg2.10.png') + ')',
         // 背景图片是否重复
         backgroundRepeat: 'no-repeat',
-        // 背景图片大小
+        // 背景图片铺满屏幕
         backgroundSize: 'cover',
         // 背景颜色
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         // 背景图片位置
-        backgroundPosition: 'center top'
+        backgroundPosition: 'center'
       }
     };
   },
@@ -79,7 +74,7 @@ export default {
 <style scoped>
 .bgBackground{
   width:100%;
-  height:600px;
+  height:100%;
 }
 
 button {

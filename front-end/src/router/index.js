@@ -3,8 +3,8 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    // redirect: '/FirstPage'
-    redirect: '/postTest'
+    redirect: '/FirstPage'
+    // redirect: '/postTest'
   },
   {
     path: '/postTest',

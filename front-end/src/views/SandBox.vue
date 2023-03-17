@@ -75,6 +75,7 @@ import course from "./course.vue";
 import {dragscroll} from "vue-dragscroll";
 import 'yoyoo-ddr-vue3/dist/yoyoo-ddr-vue3.css'
 import DDR from 'yoyoo-ddr-vue3'
+import axios from "axios";
 export default {
   directives: {
     'dragscroll': dragscroll
@@ -157,6 +158,20 @@ export default {
       drawer: false,
       toyActiveNumber: 0,
       toyActiveList: [],
+      test_toySubmitList: [
+        {
+          toyId: 1,
+          x:5.22,
+          y:6.33,
+          rotation:0.5
+        },
+        {
+          toyId: 2,
+          x:6,
+          y:10,
+          rotation: 0
+        }
+      ],
       sandBoxBlockOrder: [
         2, 0, 0, 0, 1, 2, 1, 2, 0
       ],
@@ -300,6 +315,8 @@ export default {
         }
       }
     }
+
+
   },
   methods: {
     show() {
@@ -399,6 +416,18 @@ export default {
     },
     submitBox() {
       console.log(this.toyActiveList)
+      axios.post('http://localhost:8081/SandBoxInstance/test/list', {
+        userId: 2054305,
+        sandBoxInstances: this.test_toySubmitList
+      }).then(function (res) {
+        console.log("config submit res");
+        console.log(res.data);
+
+      }).catch(function (err) {
+        // 提交错误处理 （还未完善，未进行测试
+        alert("error!");
+        console.log(err);
+      })
     },
     editCanvasScale(e) {
       e.preventDefault();

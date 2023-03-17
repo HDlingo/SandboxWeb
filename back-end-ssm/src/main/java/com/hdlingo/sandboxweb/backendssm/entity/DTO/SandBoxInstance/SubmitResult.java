@@ -3,6 +3,7 @@ package com.hdlingo.sandboxweb.backendssm.entity.DTO.SandBoxInstance;
 import com.hdlingo.sandboxweb.backendssm.entity.PO.SandBoxInstance;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,6 +14,7 @@ import java.util.List;
 public class SubmitResult {
     String userId;
     List<SandBoxInstance> sandBoxInstances;
+//    List<NewSandBoxInstance> VO_SandBoxInstances;
 
     public void syncUserId(){
         for (SandBoxInstance s:this.sandBoxInstances) {
@@ -20,3 +22,12 @@ public class SubmitResult {
         }
     }
 }
+
+//@Data
+//class NewSandBoxInstance implements Serializable {
+//    String toyName;
+//    String userId;
+//    double x;
+//    double y;
+//    double rotation;
+//}

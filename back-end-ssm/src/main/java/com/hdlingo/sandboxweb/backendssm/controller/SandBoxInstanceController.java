@@ -1,7 +1,6 @@
 package com.hdlingo.sandboxweb.backendssm.controller;
 
 import com.hdlingo.sandboxweb.backendssm.entity.DTO.SandBoxInstance.SubmitResult;
-import com.hdlingo.sandboxweb.backendssm.entity.DTO.toy.NewToyParam;
 import com.hdlingo.sandboxweb.backendssm.entity.PO.SandBoxInstance;
 import com.hdlingo.sandboxweb.backendssm.entity.PO.Toy;
 import com.hdlingo.sandboxweb.backendssm.entity.returning.ResultData;
@@ -26,6 +25,8 @@ import java.util.List;
 public class SandBoxInstanceController {
     @Resource
     SandBoxInstanceService sandBoxInstanceService;
+    @Resource
+    ToyService toyService;
 
     @Operation(summary = "根据 userId 获取所有SandBoxInstance")
     @GetMapping("user/{userId}")
@@ -74,6 +75,7 @@ public class SandBoxInstanceController {
 
         submitResult.syncUserId();
         for (SandBoxInstance s:submitResult.getSandBoxInstances()) {
+
             if(sandBoxInstanceService.save(s)){
             }
             else{
@@ -93,5 +95,21 @@ public class SandBoxInstanceController {
         else{
             return new ResultData<>().FAILED();
         }
+    }
+
+    @Operation(summary = "添加 SandBoxInstances")
+    @PostMapping("test/list")
+    ResultData t_addSandBoxInstances(@RequestBody SubmitResult submitResult){
+        if(submitResult==null){
+            return new ResultData<>().FAILED();
+        }
+
+        submitResult.syncUserId();
+        for (SandBoxInstance s:submitResult.getSandBoxInstances()) {
+            System.out.println(s.getToyId());
+            System.out.println(s.getUserId());
+        }
+        return new ResultData<>().OK();
+
     }
 }

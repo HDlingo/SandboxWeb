@@ -73,7 +73,6 @@ public class SandBoxInstanceController {
             return new ResultData<>().FAILED();
         }
 
-        submitResult.syncUserId();
         for (SandBoxInstance s:submitResult.getSandBoxInstances()) {
 
             if(sandBoxInstanceService.save(s)){
@@ -104,7 +103,6 @@ public class SandBoxInstanceController {
             return new ResultData<>().FAILED();
         }
 
-        submitResult.syncUserId();
         for (SandBoxInstance s:submitResult.getSandBoxInstances()) {
             System.out.println(s.getToyId());
             System.out.println(s.getUserId());

@@ -152,18 +152,30 @@ export default {
       drawer: false,
       toyActiveNumber: 0,
       toyActiveList: [],
-      test_toySubmitList: [
+      test_toyActiveList:[
         {
-          toyId: 1,
-          x:5.22,
-          y:6.33,
-          rotation:0.5
+          name: "horse",
+          type: "animal",
+          id: 10,
+          transform:{
+            height:100,
+            rotation:0,
+            width:100,
+            x:656,
+            y:61
+          }
         },
         {
-          toyId: 2,
-          x:6,
-          y:10,
-          rotation: 0
+          name: "grass",
+          type: "other",
+          id: 10,
+          transform:{
+            height:100,
+            rotation:0,
+            width:100,
+            x:33.5,
+            y:23.5
+          }
         }
       ],
       sandBoxBlockOrder: [
@@ -664,10 +676,10 @@ export default {
       }
     },
     submitBox() {
-      console.log(this.toyActiveList)
+      console.log(this.test_toyActiveList)
       axios.post('http://localhost:8081/SandBoxInstance/test/list', {
         userId: 2054305,
-        sandBoxInstances: this.test_toySubmitList
+        newSandBoxInstances: this.test_toyActiveList
       }).then(function (res) {
         console.log("config submit res");
         console.log(res.data);

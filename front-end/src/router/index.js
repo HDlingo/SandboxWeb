@@ -3,7 +3,13 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    redirect: '/FirstPage'
+    // redirect: '/FirstPage'
+    redirect: '/postTest'
+  },
+  {
+    path: '/postTest',
+    name: 'postTest',
+    component: () => import(/* webpackChunkName: "about" */ '../views/postTest.vue')
   },
   {
     path: '/FirstPage',

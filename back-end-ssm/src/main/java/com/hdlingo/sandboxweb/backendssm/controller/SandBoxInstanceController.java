@@ -21,6 +21,7 @@ import java.util.List;
 
 @Tag(name="沙盒SandBoxInstance")
 @RestController
+@CrossOrigin
 @RequestMapping("SandBoxInstance")
 public class SandBoxInstanceController {
     @Resource

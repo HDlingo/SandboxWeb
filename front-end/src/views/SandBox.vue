@@ -889,10 +889,10 @@ export default {
       }
     },
     submitBox() {
-      console.log(this.test_toyActiveList)
+      console.log(this.toyActiveList)
       axios.post('http://localhost:8081/SandBoxInstance/list', {
         userId: 2054305,
-        newSandBoxInstances: this.test_toyActiveList
+        newSandBoxInstances: this.toyActiveList
       }).then(function (res) {
         console.log("config submit res");
         console.log(res.data);

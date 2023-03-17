@@ -3,10 +3,10 @@
     <div id="box" class="canvasField vue-drag-scroll-out-wrapper"
          @wheel="editCanvasScale">
       <!--         v-dragscroll="{'active':this.canvasDraggable}"-->
-      <DDR :active = this.boxMovable :resizable="false" :rotatable="false" @dblclick="changeBoxMovable">
+      <DDR :active=this.boxMovable :resizable="false" :rotatable="false" @dblclick="changeBoxMovable">
         <div v-for="i in this.toyActiveNumber+1" :key="i" :id="i">
         </div>
-        <div class="map" >
+        <div class="map">
           <div class="gallery">
             <img :src="this.sandBoxBlockList[blockIndex].url" alt="a sandbox map block"
                  v-for="blockIndex in this.sandBoxBlockOrder" :key="blockIndex">
@@ -21,7 +21,7 @@
           <el-button :style="button4" @click="show" class="button4"></el-button>
           <el-button :style="{
             backgroundImage: 'url('+this.fixButtonImage+')'
-          }" id="myImage" class="fix_button" @click="this.boxMovable=!this.boxMovable" ></el-button>
+          }" id="myImage" class="fix_button" @click="this.boxMovable=!this.boxMovable"></el-button>
           <template v-if="bol">
             <course @ok="getData($event)" @cancel="close"></course>
           </template>
@@ -31,27 +31,80 @@
             <el-drawer
                 v-model="drawer"
                 direction="rtl"
-                style="user-select: none"
+                style="user-select: none;"
             >
-              <template #header>
-                <h3> Select </h3>
+              <template #header style="margin-bottom: 0px">
+                <el-autocomplete
+                    v-model="selectInput"
+                    class="w-50 m-2 mine_wrapper"
+                    placeholder="请输入搜索的沙具名称"
+                    :fetch-suggestions="querySearchAsync"
+                >
+                  <template #prefix>
+                    <img
+                        src="../assets/utils/search.png"
+                        style="width: 20px; height: 20px; margin-right: 10px;"
+                        @click="searchHandler"
+                    >
+                  </template>
+                </el-autocomplete>
               </template>
-              <el-scrollbar>
                 <div>
-                  <el-row v-for="(toy,index) in toyList" :key="index">
-                    <el-col :span="12" v-if="index*2<toyList.length">
-                      <div class="img-field" @click="createNewImgRotate(toyList[2*index])">
-                        <img class="img-item" :src="require('../assets/toys/'+toyList[2*index].name+'.png')">
+                  <el-row :gutter="5">
+                    <el-col :span="4">
+                      <el-tag round :effect="this.selectTagId===0?'dark':'light'" @click="this.selectHandle(0)">动物</el-tag>
+                    </el-col>
+                    <el-col :span="4">
+                      <el-tag round :effect="this.selectTagId===1?'dark':'light'" @click="this.selectHandle(1)">建筑</el-tag>
+                    </el-col>
+                    <el-col :span="4">
+                      <el-tag round :effect="this.selectTagId===2?'dark':'light'" @click="this.selectHandle(2)">交通</el-tag>
+                    </el-col>
+                    <el-col :span="4">
+                      <el-tag round :effect="this.selectTagId===3?'dark':'light'" @click="this.selectHandle(3)">人物</el-tag>
+                    </el-col>
+                    <el-col :span="4">
+                      <el-tag round :effect="this.selectTagId===4?'dark':'light'" @click="this.selectHandle(4)">食物</el-tag>
+                    </el-col>
+                    <el-col :span="4">
+                      <el-tag round :effect="this.selectTagId===5?'dark':'light'" @click="this.selectHandle(5)">植物</el-tag>
+                    </el-col>
+                  </el-row>
+                  <el-row style="margin-top: 10px" :gutter="10">
+                    <el-col :span="4">
+                      <el-tag round :effect="this.selectTagId===6?'dark':'light'" @click="this.selectHandle(6)">生活用品</el-tag>
+                    </el-col>
+
+                    <el-col :span="8">
+                      <el-tag round :effect="this.selectTagId===7?'dark':'light'" @click="this.selectHandle(7)">其他</el-tag>
+                    </el-col>
+                  </el-row>
+                </div>
+                <div>
+                  <el-row v-for="(toy,index) in toyShowList" :key="index">
+                    <el-col :span="12" v-if="index*2<toyShowList.length">
+                      <div class="img-field" @click="createNewImgRotate(toyShowList[2*index])">
+                        <img class="img-item" :src="require('../assets/toys/'+toyShowList[2*index].name+'.png')">
                       </div>
                     </el-col>
-                    <el-col :span="12" v-if="index*2+1 < toyList.length">
-                      <div class="img-field" @click="createNewImgRotate(toyList[2*index+1])">
-                        <img class="img-item" :src="require('../assets/toys/'+toyList[2*index+1].name+'.png')">
+                    <el-col :span="12" v-if="index*2+1 < toyShowList.length">
+                      <div class="img-field" @click="createNewImgRotate(toyShowList[2*index+1])">
+                        <img class="img-item" :src="require('../assets/toys/'+toyShowList[2*index+1].name+'.png')">
                       </div>
                     </el-col>
                   </el-row>
                 </div>
-              </el-scrollbar>
+              <template #footer style="text-align: center;">
+                <div style="display: inline-block">
+                  <el-pagination
+                      layout="prev, pager, next"
+                      :total="this.toySelectList.length"
+                      :page-size="this.pageSize"
+                      @current-change="handleCurrentChange"
+                      v-model:current-page="this.currentPage"
+                  />
+                </div>
+              </template>
             </el-drawer>
 
             <el-footer>
@@ -61,7 +114,7 @@
 
           <el-aside width="200px">
             <el-button :style="button6" @click="drawer=!drawer" class="button6"></el-button>
-<!--            <img class="img1" :src="require('../assets/box/shaju_drawer.png')">-->
+            <!--            <img class="img1" :src="require('../assets/box/shaju_drawer.png')">-->
           </el-aside>
         </el-container>
       </el-container>
@@ -90,7 +143,7 @@ export default {
   },
   data() {
     return {
-      fixButtonImage:require("../assets/first/editing0.png"),
+      fixButtonImage: require("../assets/first/editing0.png"),
       boxMovable: false,
       canvasDraggable: true,
       bol: true,
@@ -135,7 +188,7 @@ export default {
         backgroundColor: 'transparent',
         // 背景图片位置
         backgroundPosition: 'center',
-        right: this.drawer===false? '30%':'0px'
+        right: this.drawer === false ? '30%' : '0px'
       },
       background: {
         // 背景图片地址
@@ -181,288 +234,353 @@ export default {
       sandBoxBlockOrder: [
         2, 0, 0, 0, 1, 2, 1, 2, 0
       ],
+      // Toy总列表
       toyList: [
         {
           id: 1,
-          class: "animal",
-          name: "chicken"
+          type: "animal",
+          name: "chicken",
+          zhName: "鸡"
+
         },
         {
           id: 2,
-          class: "animal",
-          name: "tiger"
+          type: "animal",
+          name: "tiger",
+          zhName: "老虎"
         },
         {
           id: 3,
-          class: "animal",
-          name: "horse"
+          type: "animal",
+          name: "horse",
+          zhName: "马"
         },
         {
           id: 5,
-          class: "animal",
-          name: "sheep"
+          type: "animal",
+          name: "sheep",
+          zhName: "绵羊"
         },
         {
           id: 6,
-          class: "animal",
-          name: "cow"
+          type: "animal",
+          name: "cow",
+          zhName: "奶牛"
         },
         {
           id: 7,
-          class: "animal",
-          name: "rabbit"
+          type: "animal",
+          name: "rabbit",
+          zhName: "兔子"
         },
         {
           id: 8,
-          class: "animal",
-          name: "dog"
+          type: "animal",
+          name: "dog",
+          zhName: "狗"
         },
         {
           id: 9,
-          class: "animal",
-          name: "duck"
+          type: "animal",
+          name: "duck",
+          zhName: "鸭子"
         },
         {
           id: 10,
-          class: "animal",
-          name: "giraffe"
+          type: "animal",
+          name: "giraffe",
+          zhName: "长颈鹿"
         },
         {
           id: 11,
-          class: "animal",
-          name: "pig"
+          type: "animal",
+          name: "pig",
+          zhName: "猪"
         },
         {
           id: 12,
-          class: "building",
-          name: "castle"
+          type: "building",
+          name: "castle",
+          zhName: "城堡"
         },
         {
           id: 13,
-          class: "building",
-          name: "house"
+          type: "building",
+          name: "house",
+          zhName: "房子"
         },
         {
           id: 14,
-          class: "building",
-          name: "house2"
+          type: "building",
+          name: "house2",
+          zhName: "房子2"
         },
         {
           id: 15,
-          class: "building",
-          name: "bridge"
+          type: "building",
+          name: "bridge",
+          zhName: "桥"
         },
         {
           id: 16,
-          class: "building",
-          name: "tower"
+          type: "building",
+          name: "tower",
+          zhName: "塔"
         },
         {
           id: 17,
-          class: "building",
-          name: "library"
+          type: "building",
+          name: "library",
+          zhName: "图书馆"
         },
         {
           id: 18,
-          class: "traffic",
-          name: "car"
+          type: "traffic",
+          name: "car",
+          zhName: "汽车"
         },
         {
           id: 19,
-          class: "traffic",
-          name: "plane"
+          type: "traffic",
+          name: "plane",
+          zhName: "飞机"
         },
         {
           id: 20,
-          class: "traffic",
-          name: "plane2"
+          type: "traffic",
+          name: "plane2",
+          zhName: "飞机2"
         },
         {
           id: 21,
-          class: "traffic",
-          name: "plane3"
+          type: "traffic",
+          name: "plane3",
+          zhName: "飞机3"
         },
         {
           id: 22,
-          class: "traffic",
-          name: "plane4"
+          type: "traffic",
+          name: "plane4",
+          zhName: "飞机4"
         },
         {
           id: 23,
-          class: "other",
-          name: "shell"
+          type: "other",
+          name: "shell",
+          zhName: "贝壳"
         },
         {
           id: 24,
-          class: "other",
-          name: "stone"
+          type: "other",
+          name: "stone",
+          zhName: "石头"
         },
         {
           id: 25,
-          class: "other",
-          name: "stone2"
+          type: "other",
+          name: "stone2",
+          zhName: "石头2"
         },
         {
           id: 26,
-          class: "other",
-          name: "fence"
+          type: "other",
+          name: "fence",
+          zhName: "围栏"
         },
         {
           id: 27,
-          class: "character",
-          name: "chef"
+          type: "character",
+          name: "chef",
+          zhName: "厨师"
         },
         {
           id: 28,
-          class: "character",
-          name: "teacher"
+          type: "character",
+          name: "teacher",
+          zhName: "老师"
         },
         {
           id: 29,
-          class: "character",
-          name: "elder"
+          type: "character",
+          name: "elder",
+          zhName: "老人"
         },
         {
           id: 30,
-          class: "character",
-          name: "fairy"
+          type: "character",
+          name: "fairy",
+          zhName: "仙女"
         },
         {
           id: 31,
-          class: "character",
-          name: "girl"
+          type: "character",
+          name: "girl",
+          zhName: "女孩"
         },
         {
           id: 32,
-          class: "character",
-          name: "pupil"
+          type: "character",
+          name: "pupil",
+          zhName: "小学生"
         },
         {
           id: 33,
-          class: "character",
-          name: "doctor"
+          type: "character",
+          name: "doctor",
+          zhName: "医生"
         },
         {
           id: 34,
-          class: "character",
-          name: "footballer"
+          type: "character",
+          name: "footballer",
+          zhName: "足球运动员"
         },
         {
           id: 35,
-          class: "supplies",
-          name: "stool"
+          type: "supplies",
+          name: "stool",
+          zhName: "凳子"
         },
         {
           id: 36,
-          class: "supplies",
-          name: "tableware"
+          type: "supplies",
+          name: "tableware",
+          zhName: "餐具"
         },
         {
           id: 37,
-          class: "supplies",
-          name: "bed"
+          type: "supplies",
+          name: "bed",
+          zhName: "床"
         },
         {
           id: 38,
-          class: "supplies",
-          name: "sofa"
+          type: "supplies",
+          name: "sofa",
+          zhName: "沙发"
         },
         {
           id: 39,
-          class: "supplies",
-          name: "wardrobe"
+          type: "supplies",
+          name: "wardrobe",
+          zhName: "衣柜"
         },
         {
           id: 40,
-          class: "supplies",
-          name: "chair"
+          type: "supplies",
+          name: "chair",
+          zhName: "椅子"
         },
         {
           id: 41,
-          class: "supplies",
-          name: "desk"
+          type: "supplies",
+          name: "desk",
+          zhName: "桌子"
         },
         {
           id: 42,
-          class: "supplies",
-          name: "vase"
+          type: "supplies",
+          name: "vase",
+          zhName: "花瓶"
         },
         {
           id: 43,
-          class: "food",
-          name: "hamburger"
+          type: "food",
+          name: "hamburger",
+          zhName: "汉堡包"
         },
         {
           id: 44,
-          class: "food",
-          name: "noodle"
+          type: "food",
+          name: "noodle",
+          zhName: "面条"
         },
         {
           id: 45,
-          class: "food",
-          name: "steak"
+          type: "food",
+          name: "steak",
+          zhName: "牛排"
         },
         {
           id: 46,
-          class: "food",
-          name: "chip"
+          type: "food",
+          name: "chip",
+          zhName: "薯条"
         },
         {
           id: 47,
-          class: "food",
-          name: "cake"
+          type: "food",
+          name: "cake",
+          zhName: "蛋糕"
         },
         {
           id: 48,
-          class: "plant",
-          name: "grass"
+          type: "plant",
+          name: "grass",
+          zhName: "草"
         },
         {
           id: 49,
-          class: "plant",
-          name: "flower"
+          type: "plant",
+          name: "flower",
+          zhName: "花"
         },
         {
           id: 50,
-          class: "plant",
-          name: "bouquet"
+          type: "plant",
+          name: "bouquet",
+          zhName: "花束"
         },
         {
           id: 51,
-          class: "plant",
-          name: "bouquet2"
+          type: "plant",
+          name: "bouquet2",
+          zhName: "花束2"
         },
         {
           id: 52,
-          class: "plant",
-          name: "tree"
+          type: "plant",
+          name: "tree",
+          zhName: "树"
         },
         {
           id: 53,
-          class: "plant",
-          name: "tree2"
+          type: "plant",
+          name: "tree2",
+          zhName: "树2"
         },
         {
           id: 54,
-          class: "plant",
-          name: "tree3"
+          type: "plant",
+          name: "tree3",
+          zhName: "树3"
         },
         {
           id: 55,
-          class: "plant",
-          name: "tree4"
+          type: "plant",
+          name: "tree4",
+          zhName: "树4"
         },
         {
           id: 56,
-          class: "plant",
-          name: "tree5"
+          type: "plant",
+          name: "tree5",
+          zhName: "树5"
         },
         {
           id: 57,
-          class: "plant",
-          name: "tree6"
+          type: "plant",
+          name: "tree6",
+          zhName: "树6"
         }
       ],
+      toyZhName:[],
+      // 被筛选中的Toy列表
+      toySelectList: [],
+      // 每一页Toy的列表
+      toyShowList: [],
+      currentPage: 1,
+      pageSize: 8,
       sandBoxBlockList: [
         {
           type: '1',
@@ -537,15 +655,49 @@ export default {
           url: require("../assets/sandBoxBlocks/0_1111.png")
         }
       ],
+      TagList:[
+        {
+          id: 0,
+          name: "animal"
+        },
+        {
+          id: 1,
+          name: "building"
+        },
+        {
+          id: 2,
+          name: "traffic"
+        },
+        {
+          id: 3,
+          name: "character"
+        },
+        {
+          id: 4,
+          name: "food"
+        },        {
+          id: 5,
+          name: "plant"
+        },
+        {
+          id: 6,
+          name: "supplies"
+        },
+        {
+          id: 7,
+          name: "other"
+        },
+      ],
+      selectTagId: -1,
+      selectInput: '',
     }
   },
-  watch:{
-    boxMovable(){
-      if(this.boxMovable){
-        this.fixButtonImage= require('../assets/first/editing1.png');
-      }
-      else{
-        this.fixButtonImage= require('../assets/first/editing0.png');
+  watch: {
+    boxMovable() {
+      if (this.boxMovable) {
+        this.fixButtonImage = require('../assets/first/editing1.png');
+      } else {
+        this.fixButtonImage = require('../assets/first/editing0.png');
       }
     }
   },
@@ -553,18 +705,16 @@ export default {
     url() {
       return url
     },
-    MoveStatus(){
-      if(this.boxMovable){
+    MoveStatus() {
+      if (this.boxMovable) {
         return 'Editing'
-      }
-      else{
+      } else {
         return 'Locked'
       }
     }
   },
   created() {
     let blockSelectList = this.$store.state.blockSelectList;
-    console.log(blockSelectList)
     // 初始化SandBoxBlockOrder
     for (let i = 0; i < blockSelectList.length; i++) {
       for (let j = 0; j < this.sandBoxBlockList.length; j++) {
@@ -574,14 +724,78 @@ export default {
         }
       }
     }
-
-
+    for(let i = 0; i < this.toyList.length; i++){
+      this.toyZhName.push(this.toyList[i].zhName);
+    }
+    // 初始化ToySelectList
+    this.toySelectList = [].concat(this.toyList);
+    // 初始化ToyShowList
+    this.toyShowList = this.toySelectList.slice((this.currentPage - 1) * this.pageSize, this.pageSize);
   },
   methods: {
+    searchHandler(){
+      if(this.selectInput === ''){
+        ElMessage({
+          message: '默认显示全部沙具',
+          type: 'info',
+          duration: 2000
+        });
+        this.currentPage = 1;
+        this.toySelectList = [].concat(this.toyList);
+        this.toyShowList = this.toySelectList.slice((this.currentPage - 1) * this.pageSize, this.pageSize);
+        this.selectTagId = -1;
+        return;
+      }
+      for(let i = 0; i < this.toyList.length; i++){
+        if(this.toyList[i].zhName === this.selectInput){
+          this.toySelectList = [this.toyList[i]];
+          this.toyShowList = this.toySelectList.slice((this.currentPage - 1) * this.pageSize, this.pageSize);
+          ElMessage({
+            message: '搜索成功',
+            type: 'success'
+          });
+          this.selectTagId = -1;
+          return;
+        }
+      }
+      ElMessage({
+        message: '未找到该沙具',
+        type: 'error',
+        duration: 2000
+      });
+    },
+    querySearchAsync(queryString, cb) {
+      let toyZhName = this.toyZhName;
+      // 将toyZhName中包含queryString的name筛选出来，组成数组
+      let results = toyZhName.filter((toyZhName) => {
+        return toyZhName.toLowerCase().indexOf(queryString.toLowerCase()) !== -1;
+      });
+      // 将results改为对象数组，以便于在下拉列表中显示
+      results = results.map((item) => {
+        return {value: item};
+      });
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    selectHandle(tagId){
+      if(tagId === this.selectTagId){
+        this.selectTagId = -1;
+        this.currentPage = 1;
+        this.toySelectList = [].concat(this.toyList);
+        this.toyShowList = this.toySelectList.slice((this.currentPage - 1) * this.pageSize, this.pageSize);
+      }else{
+        this.selectTagId = tagId;
+        this.currentPage = 1;
+        this.toySelectList = this.toyList.filter((item)=>{
+          return item.type === this.TagList[tagId].name;
+        });
+        this.toyShowList = this.toySelectList.slice((this.currentPage - 1) * this.pageSize, this.pageSize);
+      }
+    },
     show() {
       this.bol = true;
     },
-    changeBoxMovable(){
+    changeBoxMovable() {
       this.boxMovable = !this.boxMovable;
       if (this.boxMovable) {
         ElMessage({
@@ -589,9 +803,8 @@ export default {
           type: 'success'
         });
         this.MoveStatus = 'Editing'
-        document.getElementById( 'myImage').backgroundImage =' url(' + require('../assets/first/editing0.png') + ')';
-      }
-      else{
+        document.getElementById('myImage').backgroundImage = ' url(' + require('../assets/first/editing0.png') + ')';
+      } else {
         ElMessage({
           message: '沙盘编辑已关闭',
           type: 'success'
@@ -625,14 +838,14 @@ export default {
       this.toyActiveList.push({
         componentId: newId, //用于标识的唯一ID
         name: toy.name,
-        class: toy.class,
+        type: toy.type,
         id: toy.id,
         transform: {}
       })
       this.toyActiveNumber++;
       let parent = document.getElementById(this.toyActiveNumber);
       let instance = h(ImgRotatable, {
-        imgUrl: toy.name+'.png',
+        imgUrl: toy.name + '.png',
         componentId: newId,
         key: this.toyActiveNumber,
         onSavePos: this.savePosHandler,
@@ -643,7 +856,7 @@ export default {
       instance.appContext = app._context;
       render(instance, parent);
       ElMessage({
-        message: "成功添加 " + toy.name+" !",
+        message: "成功添加 " + toy.name + " !",
         type: 'success',
         duration: 2000,
         showClose: true
@@ -702,6 +915,10 @@ export default {
         // 放大
         this.canvasScale += 0.1;
       }
+    },
+    handleCurrentChange(e) {
+      this.currentPage = e;
+      this.toyShowList = this.toySelectList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
     }
   }
 }
@@ -714,7 +931,7 @@ export default {
 }
 
 .map {
-  user-select:none;
+  user-select: none;
   float: left;
   width: fit-content;
   height: 100%;
@@ -816,7 +1033,7 @@ export default {
   padding: 10px;
 }
 
-.fix_button{
+.fix_button {
   position: absolute;
   left: 1.1%;
   top: 20%;
@@ -828,6 +1045,20 @@ export default {
   background-color: transparent;
   background-position: center;
 }
+
+.el-input {
+  /*--el-input-border-color: #a0cfff;*/
+  --el-input-bg-color: #ffffff00;
+  --el-input-hover-border-color: #d7d6f8;
+  --el-input-focus-border-color: #827fe9;
+}
+.el-drawer__header {
+  margin-bottom: 0;
+}
+.el-drawer__footer{
+  text-align: center;
+}
+
 #box {
   /*width: 100%;*/
   /*height: 100%;*/

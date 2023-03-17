@@ -19,7 +19,9 @@
         <el-header height="100px">
           <el-button :style="button3" @click="show" class="button3"></el-button>
           <el-button :style="button4" @click="show" class="button4"></el-button>
-          <el-button :style="fix_button" id="myImage" class="fix_button" @click="this.boxMovable=!this.boxMovable" >{{ MoveStatus }}</el-button>
+          <el-button :style="{
+            backgroundImage: 'url('+this.fixButtonImage+')'
+          }" id="myImage" class="fix_button" @click="this.boxMovable=!this.boxMovable" ></el-button>
           <template v-if="bol">
             <course @ok="getData($event)" @cancel="close"></course>
           </template>
@@ -38,13 +40,13 @@
                 <div>
                   <el-row v-for="(toy,index) in toyList" :key="index">
                     <el-col :span="12" v-if="index*2<toyList.length">
-                      <div class="img-field" @click="createNewImgRotate(toyList[2*index].name)">
-                        <img class="img-item" :src="require('../assets/'+toyList[2*index].name)">
+                      <div class="img-field" @click="createNewImgRotate(toyList[2*index])">
+                        <img class="img-item" :src="require('../assets/toys/'+toyList[2*index].name+'.png')">
                       </div>
                     </el-col>
                     <el-col :span="12" v-if="index*2+1 < toyList.length">
-                      <div class="img-field" @click="createNewImgRotate(toyList[2*index+1].name)">
-                        <img class="img-item" :src="require('../assets/'+toyList[2*index+1].name)">
+                      <div class="img-field" @click="createNewImgRotate(toyList[2*index+1])">
+                        <img class="img-item" :src="require('../assets/toys/'+toyList[2*index+1].name+'.png')">
                       </div>
                     </el-col>
                   </el-row>
@@ -59,7 +61,7 @@
 
           <el-aside width="200px">
             <el-button :style="button6" @click="drawer=!drawer" class="button6"></el-button>
-            <img class="img1" :src="require('../assets/box/shaju_drawer.png')">
+<!--            <img class="img1" :src="require('../assets/box/shaju_drawer.png')">-->
           </el-aside>
         </el-container>
       </el-container>
@@ -87,6 +89,7 @@ export default {
   },
   data() {
     return {
+      fixButtonImage:require("../assets/first/editing0.png"),
       boxMovable: false,
       canvasDraggable: true,
       bol: true,
@@ -130,17 +133,8 @@ export default {
         // 背景颜色
         backgroundColor: 'transparent',
         // 背景图片位置
-        backgroundPosition: 'center'
-      },
-      fix_button: {
-        backgroundImage: 'url(' + require('../assets/first/editing1.png') + ')',
-        backgroundRepeat: 'no-repeat',
-        // 背景图片大小
-        backgroundSize: 'cover',
-        // 背景颜色
-        backgroundColor: 'transparent',
-        // 背景图片位置
-        backgroundPosition: 'center'
+        backgroundPosition: 'center',
+        right: this.drawer===false? '30%':'0px'
       },
       background: {
         // 背景图片地址
@@ -162,44 +156,285 @@ export default {
       ],
       toyList: [
         {
-          name: 'logo.png'
+          id: 1,
+          class: "animal",
+          name: "chicken"
         },
         {
-          name: 'morty.png'
+          id: 2,
+          class: "animal",
+          name: "tiger"
         },
         {
-          name: '3.png'
+          id: 3,
+          class: "animal",
+          name: "horse"
         },
         {
-          name: '4.gif'
+          id: 5,
+          class: "animal",
+          name: "sheep"
         },
         {
-          name: '5.png'
+          id: 6,
+          class: "animal",
+          name: "cow"
         },
         {
-          name: '6.png'
+          id: 7,
+          class: "animal",
+          name: "rabbit"
         },
         {
-          name: '7.png'
+          id: 8,
+          class: "animal",
+          name: "dog"
         },
         {
-          name: '8.jpg'
+          id: 9,
+          class: "animal",
+          name: "duck"
         },
         {
-          name: '9.png'
+          id: 10,
+          class: "animal",
+          name: "giraffe"
         },
         {
-          name: '10.png'
+          id: 11,
+          class: "animal",
+          name: "pig"
         },
         {
-          name: '11.gif'
+          id: 12,
+          class: "building",
+          name: "castle"
         },
         {
-          name: '12.png'
+          id: 13,
+          class: "building",
+          name: "house"
         },
         {
-          name: '13.png'
+          id: 14,
+          class: "building",
+          name: "house2"
         },
+        {
+          id: 15,
+          class: "building",
+          name: "bridge"
+        },
+        {
+          id: 16,
+          class: "building",
+          name: "tower"
+        },
+        {
+          id: 17,
+          class: "building",
+          name: "library"
+        },
+        {
+          id: 18,
+          class: "traffic",
+          name: "car"
+        },
+        {
+          id: 19,
+          class: "traffic",
+          name: "plane"
+        },
+        {
+          id: 20,
+          class: "traffic",
+          name: "plane2"
+        },
+        {
+          id: 21,
+          class: "traffic",
+          name: "plane3"
+        },
+        {
+          id: 22,
+          class: "traffic",
+          name: "plane4"
+        },
+        {
+          id: 23,
+          class: "other",
+          name: "shell"
+        },
+        {
+          id: 24,
+          class: "other",
+          name: "stone"
+        },
+        {
+          id: 25,
+          class: "other",
+          name: "stone2"
+        },
+        {
+          id: 26,
+          class: "other",
+          name: "fence"
+        },
+        {
+          id: 27,
+          class: "character",
+          name: "chef"
+        },
+        {
+          id: 28,
+          class: "character",
+          name: "teacher"
+        },
+        {
+          id: 29,
+          class: "character",
+          name: "elder"
+        },
+        {
+          id: 30,
+          class: "character",
+          name: "fairy"
+        },
+        {
+          id: 31,
+          class: "character",
+          name: "girl"
+        },
+        {
+          id: 32,
+          class: "character",
+          name: "pupil"
+        },
+        {
+          id: 33,
+          class: "character",
+          name: "doctor"
+        },
+        {
+          id: 34,
+          class: "character",
+          name: "footballer"
+        },
+        {
+          id: 35,
+          class: "supplies",
+          name: "stool"
+        },
+        {
+          id: 36,
+          class: "supplies",
+          name: "tableware"
+        },
+        {
+          id: 37,
+          class: "supplies",
+          name: "bed"
+        },
+        {
+          id: 38,
+          class: "supplies",
+          name: "sofa"
+        },
+        {
+          id: 39,
+          class: "supplies",
+          name: "wardrobe"
+        },
+        {
+          id: 40,
+          class: "supplies",
+          name: "chair"
+        },
+        {
+          id: 41,
+          class: "supplies",
+          name: "desk"
+        },
+        {
+          id: 42,
+          class: "supplies",
+          name: "vase"
+        },
+        {
+          id: 43,
+          class: "food",
+          name: "hamburger"
+        },
+        {
+          id: 44,
+          class: "food",
+          name: "noodle"
+        },
+        {
+          id: 45,
+          class: "food",
+          name: "steak"
+        },
+        {
+          id: 46,
+          class: "food",
+          name: "chip"
+        },
+        {
+          id: 47,
+          class: "food",
+          name: "cake"
+        },
+        {
+          id: 48,
+          class: "plant",
+          name: "grass"
+        },
+        {
+          id: 49,
+          class: "plant",
+          name: "flower"
+        },
+        {
+          id: 50,
+          class: "plant",
+          name: "bouquet"
+        },
+        {
+          id: 51,
+          class: "plant",
+          name: "bouquet2"
+        },
+        {
+          id: 52,
+          class: "plant",
+          name: "tree"
+        },
+        {
+          id: 53,
+          class: "plant",
+          name: "tree2"
+        },
+        {
+          id: 54,
+          class: "plant",
+          name: "tree3"
+        },
+        {
+          id: 55,
+          class: "plant",
+          name: "tree4"
+        },
+        {
+          id: 56,
+          class: "plant",
+          name: "tree5"
+        },
+        {
+          id: 57,
+          class: "plant",
+          name: "tree6"
+        }
       ],
       sandBoxBlockList: [
         {
@@ -277,8 +512,20 @@ export default {
       ],
     }
   },
-
+  watch:{
+    boxMovable(){
+      if(this.boxMovable){
+        this.fixButtonImage= require('../assets/first/editing1.png');
+      }
+      else{
+        this.fixButtonImage= require('../assets/first/editing0.png');
+      }
+    }
+  },
   computed: {
+    url() {
+      return url
+    },
     MoveStatus(){
       if(this.boxMovable){
         return 'Editing'
@@ -343,18 +590,20 @@ export default {
     resumeCanvasDrag() {
       this.boxMovable = true;
     },
-    createNewImgRotate(name) {
+    createNewImgRotate(toy) {
       //生成唯一ID并记录
       let newId = Symbol();
       this.toyActiveList.push({
         componentId: newId, //用于标识的唯一ID
-        name: name,
+        name: toy.name,
+        class: toy.class,
+        id: toy.id,
         transform: {}
       })
       this.toyActiveNumber++;
       let parent = document.getElementById(this.toyActiveNumber);
       let instance = h(ImgRotatable, {
-        imgUrl: name,
+        imgUrl: toy.name+'.png',
         componentId: newId,
         key: this.toyActiveNumber,
         onSavePos: this.savePosHandler,
@@ -365,7 +614,7 @@ export default {
       instance.appContext = app._context;
       render(instance, parent);
       ElMessage({
-        message: "成功添加 " + name.split('.')[0] + " !",
+        message: "成功添加 " + toy.name+" !",
         type: 'success',
         duration: 2000,
         showClose: true
@@ -418,6 +667,7 @@ export default {
 </script>
 <style>
 .sandBox {
+
   width: 100%;
   height: 100%;
 }
@@ -497,11 +747,13 @@ export default {
 
 .button6 {
   position: absolute;
+  /* 1秒内将right设为30%*/
   margin-left: 0%;
   top: 5%;
   width: 5vw;
   height: 5vw;
   border: none;
+  transition: all 1s;
 }
 
 .img1 {
@@ -530,6 +782,10 @@ export default {
   width: 4vw;
   height: 4vw;
   border: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: transparent;
+  background-position: center;
 }
 #box {
   /*width: 100%;*/

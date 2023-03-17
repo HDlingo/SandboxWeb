@@ -39,7 +39,7 @@ export default {
         height: 100,
         rotation: 0
       },
-      url: require("../assets/" + this.imgUrl),
+      url: require("../assets/toys/" + this.imgUrl),
       isActive: false,
       isAlive: true,
     }

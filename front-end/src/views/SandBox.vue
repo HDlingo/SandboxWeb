@@ -168,10 +168,10 @@ export default {
         {
           name: "grass",
           type: "other",
-          id: 10,
+          id: 2,
           transform:{
             height:100,
-            rotation:0,
+            rotation:0.66,
             width:100,
             x:33.5,
             y:23.5
@@ -677,7 +677,7 @@ export default {
     },
     submitBox() {
       console.log(this.test_toyActiveList)
-      axios.post('http://localhost:8081/SandBoxInstance/test/list', {
+      axios.post('http://localhost:8081/SandBoxInstance/list', {
         userId: 2054305,
         newSandBoxInstances: this.test_toyActiveList
       }).then(function (res) {

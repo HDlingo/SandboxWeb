@@ -19,6 +19,7 @@ import java.util.List;
  */
 @Tag(name="沙盒Toy")
 @RestController
+@CrossOrigin
 @RequestMapping("toy")
 public class ToyController {
     @Resource
@@ -81,6 +82,18 @@ public class ToyController {
         }
         else{
             return new ResultData<>().FAILED();
+        }
+    }
+
+    @Operation(summary = "添加 Toy")
+    @PostMapping("testPost")
+    ResultData testPostToy(@RequestBody NewToyParam toyParam){
+        if(toyParam==null){
+            return new ResultData<>().FAILED();
+        }
+        else{
+            System.out.println("name:"+toyParam.getName());
+            return new ResultData<>().OK();
         }
     }
 }

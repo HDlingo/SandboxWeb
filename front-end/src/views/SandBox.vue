@@ -130,7 +130,7 @@ import course from "./course.vue";
 import {dragscroll} from "vue-dragscroll";
 import 'yoyoo-ddr-vue3/dist/yoyoo-ddr-vue3.css'
 import DDR from 'yoyoo-ddr-vue3'
-
+import axios from "axios";
 export default {
   directives: {
     'dragscroll': dragscroll
@@ -205,6 +205,32 @@ export default {
       drawer: false,
       toyActiveNumber: 0,
       toyActiveList: [],
+      test_toyActiveList:[
+        {
+          name: "horse",
+          type: "animal",
+          id: 10,
+          transform:{
+            height:100,
+            rotation:0,
+            width:100,
+            x:656,
+            y:61
+          }
+        },
+        {
+          name: "grass",
+          type: "other",
+          id: 2,
+          transform:{
+            height:100,
+            rotation:0.66,
+            width:100,
+            x:33.5,
+            y:23.5
+          }
+        }
+      ],
       sandBoxBlockOrder: [
         2, 0, 0, 0, 1, 2, 1, 2, 0
       ],
@@ -866,6 +892,18 @@ export default {
     },
     submitBox() {
       console.log(this.toyActiveList)
+      axios.post('http://localhost:8081/SandBoxInstance/list', {
+        userId: 2054305,
+        newSandBoxInstances: this.toyActiveList
+      }).then(function (res) {
+        console.log("config submit res");
+        console.log(res.data);
+
+      }).catch(function (err) {
+        // 提交错误处理 （还未完善，未进行测试
+        alert("error!");
+        console.log(err);
+      })
     },
     editCanvasScale(e) {
       e.preventDefault();

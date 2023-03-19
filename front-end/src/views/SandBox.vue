@@ -664,6 +664,7 @@ export default {
       ],
       selectTagId: -1,
       selectInput: '',
+      movableRecording: false,
     }
   },
   watch: {
@@ -800,11 +801,12 @@ export default {
     },
     // 在编辑图片时停止沙盘的拖拽指令
     stopCanvasDrag() {
+      this.movableRecording= this.boxMovable;
       this.boxMovable = false;
     },
     // 在编辑图片完毕时恢复沙盘的拖拽指令
     resumeCanvasDrag() {
-      this.boxMovable = true;
+      this.boxMovable = this.movableRecording;
     },
     createNewImgRotate(toy) {
       //生成唯一ID并记录

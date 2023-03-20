@@ -18,6 +18,7 @@ public class Toy {
     @TableId(type = IdType.AUTO)
     int id;
     String name;
+    String type;
     public Toy(){};
     public Toy(NewToyParam newToy){
         this.name = newToy.getName();

@@ -2,7 +2,6 @@ package com.hdlingo.sandboxweb.backendssm.controller;
 
 import com.hdlingo.sandboxweb.backendssm.entity.DTO.SandBoxInstance.SubmitResult;
 import com.hdlingo.sandboxweb.backendssm.entity.PO.SandBoxInstance;
-import com.hdlingo.sandboxweb.backendssm.entity.PO.Toy;
 import com.hdlingo.sandboxweb.backendssm.entity.returning.ResultData;
 import com.hdlingo.sandboxweb.backendssm.service.SandBoxInstanceService;
 import com.hdlingo.sandboxweb.backendssm.service.ToyService;
@@ -105,7 +104,7 @@ public class SandBoxInstanceController {
 
         for (SandBoxInstance s:submitResult.getSandBoxInstances()) {
             System.out.println(s.getToyId());
-            System.out.println(s.getUserId());
+            System.out.println(s.getPhoneNumber());
         }
         return new ResultData<>().OK();
 

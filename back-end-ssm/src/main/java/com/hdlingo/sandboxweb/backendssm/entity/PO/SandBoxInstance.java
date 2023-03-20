@@ -19,9 +19,11 @@ public class SandBoxInstance implements Serializable {
     int id;
     @TableField(value = "toyId")
     int toyId;
-    @TableField(value = "userId")
-    String userId;
+    @TableField(value = "phoneNumber")
+    String phoneNumber;
     double x;
     double y;
     double rotation;
+    double height;
+    double width;
 }

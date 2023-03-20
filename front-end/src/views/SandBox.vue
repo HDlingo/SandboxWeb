@@ -893,7 +893,7 @@ export default {
     submitBox() {
       console.log(this.toyActiveList)
       axios.post('http://localhost:8081/SandBoxInstance/list', {
-        userId: 2054305,
+        phoneNumber: 2054305,
         newSandBoxInstances: this.toyActiveList
       }).then(function (res) {
         console.log("config submit res");

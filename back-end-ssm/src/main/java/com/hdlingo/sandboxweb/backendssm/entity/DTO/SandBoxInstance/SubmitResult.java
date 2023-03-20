@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Data
 public class SubmitResult {
-    String userId;
+    String phoneNumber;
     List<NewSandBoxInstance> newSandBoxInstances;
 
     public List<SandBoxInstance> getSandBoxInstances(){
@@ -21,7 +21,7 @@ public class SubmitResult {
         for (NewSandBoxInstance n:this.newSandBoxInstances
              ) {
             SandBoxInstance s=n.turnToSandBoxInstance();
-            s.setUserId(this.userId);
+            s.setPhoneNumber(this.phoneNumber);
             sandBoxInstances.add(s);
         }
         return sandBoxInstances;
@@ -30,8 +30,8 @@ public class SubmitResult {
 
 @Data
 class NewSandBoxInstance implements Serializable {
-    String name;
-    String type;
+//    String name;
+//    String type;
     int id;// 玩具类型的id（toy.id
     Transform transform;
 
@@ -41,6 +41,8 @@ class NewSandBoxInstance implements Serializable {
         s.setToyId(this.id);
         s.setX(this.transform.getX());
         s.setY(this.transform.getY());
+        s.setHeight(this.transform.getHeight());
+        s.setWidth(this.transform.getWidth());
         s.setRotation(this.transform.getRotation());
         return  s;
     }

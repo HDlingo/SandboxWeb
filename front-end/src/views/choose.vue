@@ -38,7 +38,7 @@ export default {
       blockSelectList:[0,0,0,0,0,0,0,0,0],
       background: {
         // 背景图片地址
-        backgroundImage: 'url(' + require('../assets/first/kaishibg2.10.png') + ')',
+        backgroundImage: 'url(https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/kaishibg2.10.png)',
         // 背景图片是否重复
         backgroundRepeat: 'no-repeat',
         // 背景图片大小

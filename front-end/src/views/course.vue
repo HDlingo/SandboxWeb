@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       button2:{
-        backgroundImage: 'url(' + require('../assets/first/jiaocheng_close.png') + ')',
+        backgroundImage: 'url(https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/jiaocheng_close.png )',
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
         backgroundSize: 'cover',

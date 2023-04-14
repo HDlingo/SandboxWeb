@@ -1,4 +1,5 @@
 <template>
+<!--  src/components/ImgRotatable.vue  -->
   <DDR v-model:value=this.transform
        :acceptRatio=true
        :style="{'background-image':'url('+this.url+')'}"

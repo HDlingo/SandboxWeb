@@ -18,7 +18,6 @@
       <el-container>
         <el-header height="100px">
           <el-button :style="button3" @click="show" class="button3"></el-button>
-          <el-button :style="button4" @click="show" class="button4"></el-button>
           <el-button :style="{
             backgroundImage: 'url('+this.fixButtonImage+')'
           }" id="myImage" class="fix_button" @click="this.boxMovable=!this.boxMovable"></el-button>
@@ -114,7 +113,7 @@
 
           <el-aside width="200px">
             <el-button :style="button6" @click="drawer=!drawer" class="button6"></el-button>
-            <!--            <img class="img1" :src="require('../assets/box/shaju_drawer.png')">-->
+
           </el-aside>
         </el-container>
       </el-container>
@@ -980,17 +979,8 @@ export default {
 
 .button3 {
   position: absolute;
-  left: 2%;
+  left: 20px;
   top: 4%;
-  width: 4vw;
-  height: 4vw;
-  border: none;
-}
-
-.button4 {
-  position: absolute;
-  left: 1.1%;
-  top: 12%;
   width: 4vw;
   height: 4vw;
   border: none;
@@ -998,7 +988,7 @@ export default {
 
 .button5 {
   position: absolute;
-  left: 1.1%;
+  left: 20px;
   top: 90%;
   width: 15vw;
   height: 4vw;
@@ -1016,14 +1006,6 @@ export default {
   transition: all 1s;
 }
 
-.img1 {
-  position: absolute;
-  margin-left: 4%;
-  top: 0;
-  width: 5vw;
-  height: 100%;
-  border: none;
-}
 
 .vue-drag-scroll-out-wrapper {
   /* &::-webkit-scrollbar { width: 0 !important } */
@@ -1037,7 +1019,7 @@ export default {
 
 .fix_button {
   position: absolute;
-  left: 1.1%;
+  left: 5px;
   top: 20%;
   width: 4vw;
   height: 4vw;

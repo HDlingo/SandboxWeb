@@ -41,7 +41,7 @@
                 >
                   <template #prefix>
                     <img
-                        src="https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/utils%2Fsearch.png"
+                        src="../assets/utils/search.png"
                         style="width: 20px; height: 20px; margin-right: 10px;"
                         @click="searchHandler"
                     >
@@ -83,12 +83,12 @@
                   <el-row v-for="(toy,index) in toyShowList" :key="index">
                     <el-col :span="12" v-if="index*2<toyShowList.length">
                       <div class="img-field" @click="createNewImgRotate(toyShowList[2*index])">
-                        <img class="img-item" :src="CONSTANT.TOY_URL_PREFIX+toyShowList[2*index].name+'.png'">
+                        <img class="img-item" :src="require('../assets/toys/'+toyShowList[2*index].name+'.png')">
                       </div>
                     </el-col>
                     <el-col :span="12" v-if="index*2+1 < toyShowList.length">
                       <div class="img-field" @click="createNewImgRotate(toyShowList[2*index+1])">
-                        <img class="img-item" :src="CONSTANT.TOY_URL_PREFIX+toyShowList[2*index+1].name+'.png'">
+                        <img class="img-item" :src="require('../assets/toys/'+toyShowList[2*index+1].name+'.png')">
                       </div>
                     </el-col>
                   </el-row>
@@ -130,7 +130,6 @@ import {dragscroll} from "vue-dragscroll";
 import 'yoyoo-ddr-vue3/dist/yoyoo-ddr-vue3.css'
 import DDR from 'yoyoo-ddr-vue3'
 import axios from "axios";
-import CONSTANT from "@/utils/Constant";
 export default {
   directives: {
     'dragscroll': dragscroll
@@ -150,7 +149,7 @@ export default {
       str: '',
       canvasScale: 1,
       button3: {
-        backgroundImage: 'url(https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/shapan_help.png)',
+        backgroundImage: 'url(' + require('../assets/first/shapan_help.png') + ')',
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
         backgroundSize: 'cover',
@@ -160,7 +159,7 @@ export default {
         backgroundPosition: 'center'
       },
       button4: {
-        backgroundImage: 'url(https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/shapan_setting.png)',
+        backgroundImage: 'url(' + require('../assets/first/shapan_setting.png') + ')',
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
         backgroundSize: 'cover',
@@ -170,7 +169,7 @@ export default {
         backgroundPosition: 'center'
       },
       button5: {
-        backgroundImage: 'url(https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/shapan_submit.png)',
+        backgroundImage: 'url(' + require('../assets/first/shapan_submit.png') + ')',
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
         backgroundSize: 'cover',
@@ -180,7 +179,7 @@ export default {
         backgroundPosition: 'center'
       },
       button6: {
-        backgroundImage: 'url(https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/box/shaju_open.png )',
+        backgroundImage: 'url(' + require('../assets/box/shaju_open.png') + ')',
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
         backgroundSize: 'cover',
@@ -192,7 +191,7 @@ export default {
       },
       background: {
         // 背景图片地址
-        backgroundImage: 'url(https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/shapan_bg.png)',
+        backgroundImage: 'url(' + require('../assets/first/shapan_bg.png') + ')',
         // 背景图片是否重复
         backgroundRepeat: 'no-repeat',
         // 背景图片大小
@@ -584,71 +583,75 @@ export default {
       sandBoxBlockList: [
         {
           type: '1',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F1.png'
+          url: require("../assets/sandBoxBlocks/1.png")
         },
         {
           type: '0_0000',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_0000.png'
+          url: require("../assets/sandBoxBlocks/0_0000.png")
         },
         {
           type: '0_0001',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_0001.png'
+          url: require("../assets/sandBoxBlocks/0_0001.png")
+        },
+        {
+          type: '0_0001',
+          url: require("../assets/sandBoxBlocks/0_0001.png")
         },
         {
           type: '0_0010',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_0010.png'
+          url: require("../assets/sandBoxBlocks/0_0010.png")
         },
         {
           type: '0_0011',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_0011.png'
+          url: require("../assets/sandBoxBlocks/0_0011.png")
         },
         {
           type: '0_0100',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_0100.png'
+          url: require("../assets/sandBoxBlocks/0_0100.png")
         },
         {
           type: '0_0101',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_0101.png'
+          url: require("../assets/sandBoxBlocks/0_0101.png")
         },
         {
           type: '0_0110',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_0110.png'
+          url: require("../assets/sandBoxBlocks/0_0110.png")
         },
         {
           type: '0_0111',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_0111.png'
+          url: require("../assets/sandBoxBlocks/0_0111.png")
         },
         {
           type: '0_1000',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_1000.png'
+          url: require("../assets/sandBoxBlocks/0_1000.png")
         },
         {
           type: '0_1001',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_1001.png'
+          url: require("../assets/sandBoxBlocks/0_1001.png")
         },
         {
           type: '0_1010',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_1010.png'
+          url: require("../assets/sandBoxBlocks/0_1010.png")
         },
         {
           type: '0_1011',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_1011.png'
+          url: require("../assets/sandBoxBlocks/0_1011.png")
         },
         {
           type: '0_1100',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_1100.png'
+          url: require("../assets/sandBoxBlocks/0_1100.png")
         },
         {
           type: '0_1101',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_1101.png'
+          url: require("../assets/sandBoxBlocks/0_1101.png")
         },
         {
           type: '0_1110',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_1110.png'
+          url: require("../assets/sandBoxBlocks/0_1110.png")
         },
         {
           type: '0_1111',
-          url: 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/sandBoxBlocks%2F0_1111.png'
+          url: require("../assets/sandBoxBlocks/0_1111.png")
         }
       ],
       TagList:[
@@ -692,16 +695,13 @@ export default {
   watch: {
     boxMovable() {
       if (this.boxMovable) {
-        this.fixButtonImage = 'https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/editing1.png ';
+        this.fixButtonImage = require('../assets/first/editing1.png');
       } else {
-        this.fixButtonImage ='https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first%2Fediting0.png';
+        this.fixButtonImage = require('../assets/first/editing0.png');
       }
     }
   },
   computed: {
-    CONSTANT() {
-      return CONSTANT
-    },
     url() {
       return url
     },

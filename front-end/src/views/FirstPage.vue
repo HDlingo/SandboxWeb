@@ -3,7 +3,7 @@
     <div class="common-layout">
       <el-container>
         <el-header height="100vh">
-          <img class="gif1" alt="logo" src="	https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/begin1.gif">
+          <img class="gif1" alt="logo" :src="require('../assets/first/begin1.gif')">
           <div>
             <el-button @click="show" class="full-rounded">
               <span>沙 盘 探 索</span>
@@ -35,7 +35,7 @@ export default {
       // 顶部导航背景图片配置
       background: {
         // 背景图片地址
-        backgroundImage: 'url(https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/kaishibg2.10.png)',
+        backgroundImage: 'url(' + require('../assets/first/kaishibg2.10.png') + ')',
         // 背景图片是否重复
         backgroundRepeat: 'no-repeat',
         // 背景图片铺满屏幕

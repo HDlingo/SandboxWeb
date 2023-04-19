@@ -40,7 +40,7 @@ export default {
         height: 100,
         rotation: 0
       },
-      url: require("../assets/toys/" + this.imgUrl),
+      url: "https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/toys/" + this.imgUrl,
       isActive: false,
       isAlive: true,
     }

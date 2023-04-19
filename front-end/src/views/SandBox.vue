@@ -144,7 +144,7 @@ export default {
   },
   data() {
     return {
-      fixButtonImage: require("../assets/first/editing0.png"),
+      fixButtonImage: "https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/editing0.png",
       boxMovable: false,
       canvasDraggable: true,
       bol: true,
@@ -804,7 +804,7 @@ export default {
           type: 'success'
         });
         this.MoveStatus = 'Editing'
-        document.getElementById('myImage').backgroundImage = ' url(' + require('../assets/first/editing0.png') + ')';
+        // document.getElementById('myImage').backgroundImage = ' url(https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/editing0.png)';
       } else {
         ElMessage({
           message: '沙盘编辑已关闭',

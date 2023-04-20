@@ -20,10 +20,10 @@ public class SandBoxInstanceServiceImpl extends ServiceImpl<SandBoxInstanceMappe
     SandBoxInstanceMapper sandBoxInstanceMapper;
 
     @Override
-    public List<SandBoxInstance> getByUserId(String userId){
+    public List<SandBoxInstance> getByPhoneNumber(String phoneNumber){
         //条件查询
         QueryWrapper<SandBoxInstance> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("userId",userId);
+        queryWrapper.eq("phoneNumber",phoneNumber);
         //查找出maskTypeId对应的defectClassPlan列表
         return sandBoxInstanceMapper.selectList(queryWrapper);
     }

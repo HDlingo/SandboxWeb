@@ -892,11 +892,12 @@ export default {
     submitBox() {
       console.log(this.toyActiveList)
       axios.post('http://localhost:9001/SandBoxInstance/list', {
-        phoneNumber: 2054305,
+        phoneNumber: 6666,
         newSandBoxInstances: this.toyActiveList
       }).then(function (res) {
         console.log("config submit res");
         console.log(res.data);
+        alert("success! (test phoneNumber is 6666)");
 
       }).catch(function (err) {
         // 提交错误处理 （还未完善，未进行测试

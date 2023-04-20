@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface SandBoxInstanceService extends IService<SandBoxInstance> {
 
-    List<SandBoxInstance> getByUserId(String userId);
+    List<SandBoxInstance> getByPhoneNumber(String phoneNumber);
 
     List<SandBoxInstance> getByToyId(Integer toyId);
 }

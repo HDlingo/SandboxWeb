@@ -27,10 +27,10 @@ public class SandBoxInstanceController {
     @Resource
     ToyService toyService;
 
-    @Operation(summary = "根据 userId 获取所有SandBoxInstance")
-    @GetMapping("user/{userId}")
-    ResultData getSandBoxInstancesByUserId(@PathVariable("userId")String userId){
-        List<SandBoxInstance> sandBoxInstanceList = sandBoxInstanceService.getByUserId(userId);
+    @Operation(summary = "根据 phoneNumber 获取所有SandBoxInstance")
+    @GetMapping("phoneNumber/{phoneNumber}")
+    ResultData getSandBoxInstancesByUserId(@PathVariable("phoneNumber")String phoneNumber){
+        List<SandBoxInstance> sandBoxInstanceList = sandBoxInstanceService.getByPhoneNumber(phoneNumber);
         if(sandBoxInstanceList.isEmpty()){
             return new ResultData().FAILED();
         }

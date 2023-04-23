@@ -891,12 +891,14 @@ export default {
     },
     submitBox() {
       console.log(this.toyActiveList)
-      axios.post('http://localhost:8081/SandBoxInstance/list', {
-        phoneNumber: 2054305,
+      axios.post('http://124.220.51.84:9001/SandBoxInstance/list', {
+        phoneNumber: 6666,
+        description: "this is test description",
         newSandBoxInstances: this.toyActiveList
       }).then(function (res) {
         console.log("config submit res");
         console.log(res.data);
+        alert("success! \ntest phoneNumber: 6666\ntest description: \"this is test description\"");
 
       }).catch(function (err) {
         // 提交错误处理 （还未完善，未进行测试

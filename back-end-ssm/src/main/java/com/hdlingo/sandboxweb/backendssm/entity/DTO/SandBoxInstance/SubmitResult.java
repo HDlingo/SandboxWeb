@@ -14,6 +14,7 @@ import java.util.List;
 @Data
 public class SubmitResult {
     String phoneNumber;
+    String description;
     List<NewSandBoxInstance> newSandBoxInstances;
 
     public List<SandBoxInstance> getSandBoxInstances(){
@@ -22,6 +23,7 @@ public class SubmitResult {
              ) {
             SandBoxInstance s=n.turnToSandBoxInstance();
             s.setPhoneNumber(this.phoneNumber);
+            s.setDescription(this.description);
             sandBoxInstances.add(s);
         }
         return sandBoxInstances;

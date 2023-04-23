@@ -7,11 +7,6 @@ const routes = [
     // redirect: '/postTest'
   },
   {
-    path: '/postTest',
-    name: 'postTest',
-    component: () => import(/* webpackChunkName: "about" */ '../views/postTest.vue')
-  },
-  {
     path: '/FirstPage',
     name: 'FirstPage',
     component: () => import(/* webpackChunkName: "about" */ '../views/FirstPage.vue')

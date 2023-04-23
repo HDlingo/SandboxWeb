@@ -26,4 +26,5 @@ public class SandBoxInstance implements Serializable {
     double rotation;
     double height;
     double width;
+    String description;
 }

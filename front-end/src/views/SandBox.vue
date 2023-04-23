@@ -18,7 +18,6 @@
       <el-container>
         <el-header height="100px">
           <el-button :style="button3" @click="show" class="button3"></el-button>
-          <el-button :style="button4" @click="show" class="button4"></el-button>
           <el-button :style="{
             backgroundImage: 'url('+this.fixButtonImage+')'
           }" id="myImage" class="fix_button" @click="this.boxMovable=!this.boxMovable"></el-button>

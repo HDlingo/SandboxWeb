@@ -108,7 +108,7 @@ export default {
 }
 
 .alert{
-  background-image: url("../assets/first/daoyu2.10.png");
+  background-image: url("https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/first/daoyu4.9.png");
   background-repeat:no-repeat;
   background-size:100% 100%;
   -moz-background-size:100% 100%;

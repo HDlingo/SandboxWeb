@@ -77,7 +77,7 @@ export default {
 }
 
 .alert{
-  background-image: url("../assets/box/jiaocheng_panel.png");
+  background-image: url("https://websandbox-1314584991.cos.ap-shanghai.myqcloud.com/box/jiaocheng_panel.png");
   background-repeat:no-repeat;
   background-size:100% 100%;
   -moz-background-size:100% 100%;

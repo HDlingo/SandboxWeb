@@ -107,7 +107,7 @@
             </el-drawer>
 
             <el-footer>
-              <el-button :style="button5" @click="submitBox()" class="button5"></el-button>
+              <el-button :style="button5" @click="open()" class="button5"></el-button>
             </el-footer>
           </el-container>
 
@@ -124,13 +124,15 @@
 <script>
 import ImgRotatable from "@/components/ImgRotatable";
 import {render, h} from "vue";
-import {ElMessage} from 'element-plus'
 import course from "./course.vue";
 import {dragscroll} from "vue-dragscroll";
 import 'yoyoo-ddr-vue3/dist/yoyoo-ddr-vue3.css'
 import DDR from 'yoyoo-ddr-vue3'
 import axios from "axios";
 import CONSTANT from "@/utils/Constant";
+import { ElMessage, ElMessageBox } from 'element-plus'
+
+
 export default {
   directives: {
     'dragscroll': dragscroll
@@ -733,6 +735,60 @@ export default {
     this.toyShowList = this.toySelectList.slice((this.currentPage - 1) * this.pageSize, this.pageSize);
   },
   methods: {
+    open(){
+      ElMessageBox.prompt('请输入一段描述语言', 'Tip', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+      })
+          .then(({ value }) => {
+            let a = value;
+            ElMessage({
+              type: 'success',
+              message: `Your description is:${a}`,
+            })
+            ElMessageBox.prompt('请输入你的手机号码后四位', 'Tip', {
+              confirmButtonText: 'OK',
+              cancelButtonText: 'Cancel',
+              inputPattern:
+                  /[\w!#$%&'*+/=?^_`{|}~-]/,
+              inputErrorMessage: '输入不为空',
+            })
+                .then(({ value }) => {
+                  ElMessage({
+                    type: 'success',
+                    message: `Your phone is: ${value}`,
+                  })
+                  console.log(this.toyActiveList)
+                  axios.post('http://124.220.51.84:9001/SandBoxInstance/list', {
+                    phoneNumber: value,
+                    description: a,
+                    newSandBoxInstances: this.toyActiveList
+                  }).then(function (res) {
+                    console.log("config submit res");
+                    console.log(res.data);
+                    alert("success!");
+
+                  }).catch(function (err) {
+                    // 提交错误处理 （还未完善，未进行测试
+                    alert("error!");
+                    console.log(err);
+                  })
+
+                })
+                .catch(() => {
+                  ElMessage({
+                    type: 'info',
+                    message: 'Input canceled',
+                  })
+                })
+          })
+          .catch(() => {
+            ElMessage({
+              type: 'info',
+              message: 'Input canceled',
+            })
+          })
+    },
     searchHandler(){
       if(this.selectInput === ''){
         ElMessage({
@@ -890,21 +946,7 @@ export default {
       }
     },
     submitBox() {
-      console.log(this.toyActiveList)
-      axios.post('http://124.220.51.84:9001/SandBoxInstance/list', {
-        phoneNumber: 6666,
-        description: "this is test description",
-        newSandBoxInstances: this.toyActiveList
-      }).then(function (res) {
-        console.log("config submit res");
-        console.log(res.data);
-        alert("success! \ntest phoneNumber: 6666\ntest description: \"this is test description\"");
 
-      }).catch(function (err) {
-        // 提交错误处理 （还未完善，未进行测试
-        alert("error!");
-        console.log(err);
-      })
     },
     editCanvasScale(e) {
       e.preventDefault();
